@@ -76,6 +76,12 @@
               <p>Cursos</p>
             </a>
           </li>
+          <li class="nav-item ">
+              <a class="nav-link" href="/institutions">
+                <i class="material-icons"><i class="fas fa-school"></i></i>
+                <p>Instituições</p>
+              </a>
+            </li>
         </ul>
       </div>
     </div>

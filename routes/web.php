@@ -27,6 +27,7 @@ Route::middleware(['auth', 'super.admin'])->group(function() {
     Route::resource('/departments', 'DepartmentController');
     Route::resource('/degrees', 'DegreeController');
     Route::resource('/courses', 'CourseController');
+    Route::resource('/institutions', 'InstitutionController');
 });
 
 
