@@ -64,6 +64,18 @@
               <p>Áreas de Conhecimento</p>
             </a>
           </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/degrees">
+              <i class="material-icons"><i class="fas fa-award"></i></i>
+              <p>Graduações</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/courses">
+              <i class="material-icons"><i class="fas fa-user-graduate"></i></i>
+              <p>Cursos</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
