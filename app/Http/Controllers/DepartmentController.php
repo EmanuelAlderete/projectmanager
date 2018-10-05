@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Branch;
+use App\Department;
 
-class BranchController extends Controller
+class DepartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,10 @@ class BranchController extends Controller
      */
     public function index()
     {
-        $branches = Branch::all();
+        $departments = Department::all();
 
-        return view('admin.branches.index', [
-            'branches' => $branches,
+        return view('admin.departments.index', [
+            'departments' => $departments,
             'title' => 'Áreas do Conhecimento'
         ]);
     }
@@ -29,7 +29,7 @@ class BranchController extends Controller
      */
     public function create()
     {
-        return view('admin.branches.create', [
+        return view('admin.departments.create', [
             'title' => 'Criar Área'
         ]);
     }
@@ -42,14 +42,14 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-        $branch = Branch::create([
+        $department = Department::create([
             'name' => $request->get('name'),
             'label' => $request->get('label'),
             'icon' => $request->get('icon'),
-            'main_branch' => $request->get('main')
+            'main_department' => $request->get('main')
         ]);
 
-        return redirect('/branches');
+        return redirect('/departments');
     }
 
     /**
@@ -60,11 +60,11 @@ class BranchController extends Controller
      */
     public function show($id)
     {
-        $branch = Branch::find($id);
+        $department = Department::find($id);
 
-        return view('admin.branches.show', [
-            'branch' => $branch,
-            'title' => 'Área: '.$branch->name
+        return view('admin.departments.show', [
+            'department' => $department,
+            'title' => 'Área: '.$department->name
         ]);
     }
 
@@ -76,10 +76,10 @@ class BranchController extends Controller
      */
     public function edit($id)
     {
-        $branch = Branch::find($id);
+        $department = Department::find($id);
 
-        return view('admin.branches.edit', [
-            'branch' => $branch,
+        return view('admin.departments.edit', [
+            'department' => $department,
             'title' => 'Editar Área'
         ]);
     }
@@ -93,15 +93,15 @@ class BranchController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $branch = Branch::find($id);
+        $department = Department::find($id);
 
-        $branch->name = $request->get('name');
-        $branch->label = $request->get('label');
-        $branch->icon = $request->get('icon');
-        $branch->main_branch = $request->get('main');
-        $branch->save();
+        $department->name = $request->get('name');
+        $department->label = $request->get('label');
+        $department->icon = $request->get('icon');
+        $department->main_department = $request->get('main');
+        $department->save();
 
-        return redirect('/branches');
+        return redirect('/departments');
     }
 
     /**
@@ -112,8 +112,8 @@ class BranchController extends Controller
      */
     public function destroy($id)
     {
-        Branch::destroy($id);
+        Department::destroy($id);
 
-        return redirect('/branches');
+        return redirect('/departments');
     }
 }

@@ -24,7 +24,7 @@ Route::middleware(['auth', 'super.admin'])->group(function() {
     Route::resource('/users', 'UserController');
     Route::resource('/permissions', 'PermissionController');
     Route::resource('/roles', 'RoleController');
-    Route::resource('/branches', 'BranchController');
+    Route::resource('/departments', 'DepartmentController');
 });
 
 

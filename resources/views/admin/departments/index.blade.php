@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <a href="/branches/create"><button class="btn btn-primary btn-md">Adicionar <i class="fa fa-plus-circle" aria-hidden="true"></i></button></a>
+        <a href="/departments/create"><button class="btn btn-primary btn-md">Adicionar <i class="fa fa-plus-circle" aria-hidden="true"></i></button></a>
     </div>
     <hr>
     <div class="row">
@@ -17,26 +17,26 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($branches as $branch)
+                @forelse($departments as $department)
                 <tr>
-                    <td class="text-center">{{ $branch->id }}</td>
-                    <td>{{ $branch->name }}</td>
-                    <td>{{ $branch->label }}</td>
+                    <td class="text-center">{{ $department->id }}</td>
+                    <td>{{ $department->name }}</td>
+                    <td>{{ $department->label }}</td>
                     <td class="td-actions text-right">
-                        <a href="/branches/{{ $branch->id }}">
+                        <a href="/departments/{{ $department->id }}">
                             <button type="button" rel="tooltip" class="btn btn-info">
                                 <i class="material-icons">person</i>
                             </button>
                         </a>
-                        <a href="/branches/{{ $branch->id }}/edit">
+                        <a href="/departments/{{ $department->id }}/edit">
                             <button type="button" rel="tooltip" class="btn btn-success">
                                 <i class="material-icons">edit</i>
                             </button>
                         </a>
-                        <button onclick="event.preventDefault();document.getElementById('delete-form').submit();" rel="tooltip" class="btn btn-danger">
+                        <button onclick="event.preventDefault();document.getElementById('{{ $department->id }}').submit();" rel="tooltip" class="btn btn-danger">
                             <i class="material-icons">close</i>
                         </button>
-                        <form id="delete-form" action="/branches/{{ $branch->id }}" method="POST" style="display: none;">
+                        <form id="{{ $department->id }}" action="/departments/{{ $department->id }}" method="POST" style="display: none;">
                             @csrf
                             @method('delete')
                         </form>

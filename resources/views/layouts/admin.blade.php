@@ -59,7 +59,7 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="/branches">
+            <a class="nav-link" href="/departments">
               <i class="material-icons"><i class="fas fa-atom"></i></i>
               <p>Áreas de Conhecimento</p>
             </a>

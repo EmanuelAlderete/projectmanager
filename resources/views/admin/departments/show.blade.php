@@ -2,7 +2,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <a href="/branches"><button class="btn btn-primary btn-md"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></button></a>
+        <a href="/departments"><button class="btn btn-primary btn-md"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></button></a>
     </div>
     <hr>
     <div class="row">
@@ -10,22 +10,22 @@
             <form method="post" action="#">
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Nome</label>
-                    <input type="text" name="name" class="form-control" id="exampleFormControlInput1" value="{{ $branch->name }}" readonly>
+                    <input type="text" name="name" class="form-control" id="exampleFormControlInput1" value="{{ $department->name }}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Descrição</label>
-                    <textarea class="form-control" name="label" id="exampleFormControlTextarea1" placeholder="Deletar usuários" rows="3" readonly>{{ $branch->label }}</textarea>
+                    <textarea class="form-control" name="label" id="exampleFormControlTextarea1" placeholder="Deletar usuários" rows="3" readonly>{{ $department->label }}</textarea>
                 </div>
-                @if($branch->icon)
+                @if($department->icon)
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Ícone: </label>
-                    {!! $branch->icon !!}
+                    {!! $department->icon !!}
                 </div>
                 @endif
-                @if($branch->main_branch > 0)
+                @if($department->main_department > 0)
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Área Principal: </label>
-                    @switch($branch->main_branch)
+                    @switch($department->main_department)
                         @case(1)
                         <span class="badge badge-success">Exatas</span>
                             @break
