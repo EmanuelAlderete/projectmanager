@@ -12,15 +12,15 @@
                 @method('PUT')
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Nome</label>
-                    <input type="text" name="name" class="form-control" id="exampleFormControlInput1" placeholder="Âderson Alves da Silva" value="{{ $user->name }}" required>
+                    <input type="text" name="name" class="form-control" placeholder="Âderson Alves da Silva" value="{{ $user->name }}" required>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">E-mail</label>
-                    <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" value="{{ $user->email }}" required>
+                    <input type="email" name="email" class="form-control" placeholder="name@example.com" value="{{ $user->email }}" required>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Insira a nova senha:</label>
-                    <input type="password" name="password" class="form-control" minlength="6" id="exampleFormControlInput1">
+                    <input type="password" name="password" class="form-control" minlength="6">
                     <small id="emailHelp" class="form-text text-muted">Deixe em branco para não alterar.</small>
                 </div>
                 <div class="form-group">

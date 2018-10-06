@@ -23,7 +23,7 @@
                     <textarea class="form-control" name="address" id="exampleFormControlTextarea1" placeholder="Estuda as leis" rows="3" required>{{ $institution->address }}</textarea>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Graduação</label>
+                    <label for="exampleFormControlTextarea1">Cursos</label>
                     <select class="form-control" name="courses[]" id="exampleFormControlSelect1" multiple>
                         @forelse($courses as $course)
                         <option value="{{ $course->id }}" {{ $institution->courses->contains($course) ? 'selected' : '' }}>{{ $course->name }}</option>

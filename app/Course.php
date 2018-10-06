@@ -21,4 +21,8 @@ class Course extends Model
     public function institutions() {
         return $this->belongsToMany(Institution::class);
     }
+
+    public function ideas() {
+        return $this->belongsToMany(Idea::class);
+    }
 }

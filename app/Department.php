@@ -14,4 +14,8 @@ class Department extends Model
     public function courses() {
         return $this->hasMany(Course::class);
     }
+
+    public function ideas() {
+        return $this->belongsToMany(Idea::class);
+    }
 }

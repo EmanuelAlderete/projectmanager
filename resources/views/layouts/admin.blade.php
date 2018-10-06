@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -77,11 +78,17 @@
             </a>
           </li>
           <li class="nav-item ">
-              <a class="nav-link" href="/institutions">
-                <i class="material-icons"><i class="fas fa-school"></i></i>
-                <p>Instituições</p>
-              </a>
-            </li>
+            <a class="nav-link" href="/institutions">
+              <i class="material-icons"><i class="fas fa-school"></i></i>
+              <p>Instituições</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/ideas">
+              <i class="material-icons"><i class="fas fa-lightbulb"></i></i>
+              <p>Ideias</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -159,7 +166,7 @@
         </div>
       </nav>
       <!-- End Navbar -->
-      <div class="content">
+      <div class="content" id="app">
         @yield('content')
       </div>
       <footer class="footer">
@@ -201,7 +208,7 @@
   </div>
 
 
-
+  <script src="{{ asset('js/app.js') }}"></script>
   <script src="{{ asset('js/admin.js') }}"></script>
 
   <script>
