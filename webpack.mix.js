@@ -22,10 +22,13 @@ mix.scripts([
     'resources/themes/admin/js/assets/js/plugins/chartist.min.js',
     'resources/themes/admin/js/assets/js/plugins/bootstrap-notify.js',
     'resources/themes/admin/js/material-dashboard.min.js',
+    'resources/themes/admin/js/main.js'
 ], 'public/js/admin.js'); 
 
-mix.styles('resources/themes/admin/css/material-dashboard.css',
-'public/css/admin.css');
+mix.styles([
+    'resources/themes/admin/css/material-dashboard.css',
+    'resources/themes/admin/css/main.css'
+], 'public/css/admin.css');
 
 mix.scripts([
     'resources/js/main.js'

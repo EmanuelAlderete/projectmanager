@@ -33,10 +33,10 @@
                                 <i class="material-icons">edit</i>
                             </button>
                         </a>
-                        <button onclick="event.preventDefault();document.getElementById('delete-form').submit();" rel="tooltip" class="btn btn-danger">
+                        <button onclick="event.preventDefault();document.getElementById({{ $permission->id }}).submit();" rel="tooltip" class="btn btn-danger">
                             <i class="material-icons">close</i>
                         </button>
-                        <form id="delete-form" action="/permissions/{{ $permission->id }}" method="POST" style="display: none;">
+                        <form id="{{ $permission->id }}" action="/permissions/{{ $permission->id }}" method="POST" style="display: none;">
                             @csrf
                             @method('delete')
                         </form>

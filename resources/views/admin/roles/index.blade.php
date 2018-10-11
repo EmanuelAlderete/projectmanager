@@ -33,10 +33,10 @@
                                 <i class="material-icons">edit</i>
                             </button>
                         </a>
-                        <button onclick="event.preventDefault();document.getElementById('delete-form').submit();" rel="tooltip" class="btn btn-danger">
+                        <button onclick="event.preventDefault();document.getElementById({{ $role->id }}).submit();" rel="tooltip" class="btn btn-danger">
                             <i class="material-icons">close</i>
                         </button>
-                        <form id="delete-form" action="/roles/{{ $role->id }}" method="POST" style="display: none;">
+                        <form id="{{ $role->id }}" action="/roles/{{ $role->id }}" method="POST" style="display: none;">
                             @csrf
                             @method('delete')
                         </form>

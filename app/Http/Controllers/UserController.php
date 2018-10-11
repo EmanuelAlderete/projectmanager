@@ -115,6 +115,16 @@ class UserController extends Controller
         if ($request->get('password')) {
             $user->password = Hash::make($request->get('password'));
         }
+
+        if ($request->get('teacher')) {
+            $user->teacher = 1;
+            $user->registry = $request->get('registry');
+        } else {
+            $user->teacher = 0;
+            $user->registry = '';
+        }
+
+        $user->gender = $request->get('gender');
         $user->save();
         $user->roles()->sync($request->get('roles'));
 

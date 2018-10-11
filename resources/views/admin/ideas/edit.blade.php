@@ -8,11 +8,11 @@
     <div class="row">
         <div class="col-12">
             <form method="post" action="/ideas/{{ $idea->id }}">
-                @csrf
-                @method('PUT')
+                @csrf @method('PUT')
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Ideia</label>
-                    <textarea class="form-control" name="content" id="exampleFormControlTextarea1" placeholder="Criar um robo para varrer" rows="3" required>{{ $idea->content }}</textarea>
+                    <textarea class="form-control" name="content" id="exampleFormControlTextarea1" placeholder="Criar um robo para varrer" rows="3"
+                        required>{{ $idea->content }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="inputState">Status</label>
@@ -23,8 +23,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                <label for="inputState">Cursos de Interesse</label>
-                <select id="inputState" class="form-control" name="courses[]" multiple>
+                    <label for="inputState">Cursos de Interesse</label>
+                    <select id="inputState" class="form-control" name="courses[]" multiple>
                     @forelse($courses as $course)
                     <option value="{{ $course->id }}" {{ $idea->courses->contains($course) ? 'selected' : '' }}>{{ $course->name }}</option>
                     @empty
