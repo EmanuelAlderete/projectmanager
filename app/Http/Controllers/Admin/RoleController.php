@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Role;
 use App\Permission;
 
-class PermissionController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +16,11 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permissions = Permission::all();
-        
-        return view('admin.permissions.index', [
-            'permissions' => $permissions,
-            'title' => 'Permissões'
+        $roles = Role::all();
+
+        return view('admin.roles.index', [
+            'roles' => $roles,
+            'title' => 'Cargos'
         ]);
     }
 
@@ -29,8 +31,11 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('admin.permissions.create', [
-            'title' => 'Criar Permissão'
+        $permissions = Permission::all();
+
+        return view('admin.roles.create', [
+            'permissions' => $permissions,
+            'title' => 'Criar Cargo'
         ]);
     }
 
@@ -42,12 +47,14 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        $permission = Permission::create([
+        $role =  Role::create([
             'name' => $request->get('name'),
             'label' => $request->get('label')
         ]);
 
-        return redirect('/permissions');
+        $role->permissions()->sync($request->get('permissions'));
+
+        return redirect('/roles');
     }
 
     /**
@@ -58,11 +65,11 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        $permission = Permission::find($id);
+        $role = Role::find($id);
 
-        return view('admin.permissions.show', [
-            'permission' => $permission,
-            'title' => 'Permissão: '.$permission->name
+        return view('admin.roles.show', [
+            'role' => $role,
+            'title' => 'Cargo: '.$role->name
         ]);
     }
 
@@ -74,11 +81,13 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $permission = Permission::find($id);
+        $role = Role::find($id);
+        $permissions = Permission::all();
 
-        return view('admin.permissions.edit', [
-            'permission' => $permission,
-            'title' => 'Editar Permissão'
+        return view('admin.roles.edit', [
+            'role' => $role,
+            'permissions' => $permissions,
+            'title' => 'Editar Cargo'
         ]);
     }
 
@@ -91,13 +100,14 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $permission = Permission::find($id);
+        $role =  Role::find($id);
 
-        $permission->name = $request->get('name');
-        $permission->label = $request->get('label');
-        $permission->save();
+        $role->name = $request->get('name');
+        $role->label = $request->get('label');
+        $role->save();
+        $role->permissions()->sync($request->get('permissions'));
 
-        return redirect('/permissions');
+        return redirect('/roles');
     }
 
     /**
@@ -108,7 +118,8 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        Permission::destroy($id);
-        return redirect('/permissions');
+        Role::destroy($id);
+
+        return redirect('/roles');
     }
 }

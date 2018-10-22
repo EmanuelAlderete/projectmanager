@@ -30,11 +30,8 @@ mix.styles([
     'resources/themes/admin/css/main.css'
 ], 'public/css/admin.css');
 
-mix.scripts([
-    'resources/js/main.js'
-], 'resources/js/auth.js');
-
 mix.styles([
-    'resources/sass/material-design-iconic-font.css',
-    'resources/sass/style.css'
-], 'public/css/auth.css');
+    'resources/themes/login/css/style.css'
+], 'public/css/auth/style.css');
+
+mix.browserSync('127.0.0.1:8000');

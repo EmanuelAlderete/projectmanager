@@ -3,6 +3,5 @@
     "/css/app.css": "/css/app.css",
     "/js/admin.js": "/js/admin.js",
     "/css/admin.css": "/css/admin.css",
-    "/resources/js/auth.js": "/resources/js/auth.js",
-    "/css/auth.css": "/css/auth.css"
+    "/css/auth/style.css": "/css/auth/style.css"
 }
