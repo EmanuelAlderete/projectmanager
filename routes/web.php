@@ -36,7 +36,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::namespace('App')->group(function () {
         Route::get('/search', 'SearchController@index');
-        Route::get('/ideas', 'IdeaController@index');
+        Route::Resource('/ideas', 'IdeaController')->only([
+            'index', 'store'
+        ]);
     });
 });
 

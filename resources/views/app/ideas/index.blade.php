@@ -5,8 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-sm-12 col-md-6">
             <div class="publish">
-                <form action="">
-                    <textarea name="content" cols="30" rows="5" maxlength="500" placeholder="Tem uma ideia?? Conta pra gente!!" v-model="ideaBox"></textarea>
+                <form method="post" action="/ideas">
+                    @csrf
+                    <textarea name="content" cols="30" rows="3" maxlength="500" placeholder="Tem uma ideia?? Conta pra gente!!" v-model="ideaBox"></textarea>
+                    <button class="btn btn-danger">Publicar</button>
                 </form>
             </div>
         </div>
@@ -33,7 +35,7 @@
                     <div class="card-body">
                       <h5 class="card-title">{{ $idea->user->name }}</h5>
                       <p class="card-text">{{ $idea->content }}</p>
-                      <a href="#" class="btn btn-success">Conhecer</a>
+                      {{-- <a href="#" class="btn btn-success">Conhecer</a> --}}
                     </div>
                   </div>
             </div>
