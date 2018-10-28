@@ -20,16 +20,23 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::middleware(['auth', 'super.admin'])->group(function () {
-    Route::namespace('Admin')->group(function () {
-        Route::resource('/users', 'UserController');
-        Route::resource('/permissions', 'PermissionController');
-        Route::resource('/roles', 'RoleController');
-        Route::resource('/departments', 'DepartmentController');
-        Route::resource('/degrees', 'DegreeController');
-        Route::resource('/courses', 'CourseController');
-        Route::resource('/institutions', 'InstitutionController');
-        Route::resource('/ideas', 'IdeaController');
+Route::middleware(['auth'])->group(function () {
+    Route::middleware(['super.admin'])->group(function () {
+        Route::namespace('Admin')->group(function () {
+            Route::resource('/users', 'UserController');
+            Route::resource('/permissions', 'PermissionController');
+            Route::resource('/roles', 'RoleController');
+            Route::resource('/departments', 'DepartmentController');
+            Route::resource('/degrees', 'DegreeController');
+            Route::resource('/courses', 'CourseController');
+            Route::resource('/institutions', 'InstitutionController');
+            Route::resource('/ideas-admin', 'IdeaController');
+        });
+    });
+
+    Route::namespace('App')->group(function () {
+        Route::get('/search', 'SearchController@index');
+        Route::get('/ideas', 'IdeaController@index');
     });
 });
 

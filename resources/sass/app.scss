@@ -1,3 +1,78 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+
+// SEARCH SECTION
+// --------------
+
+.form-search {
+    display: flex;
+    margin: 0;
+}
+
+.form-search input[type="search"] {
+    width: 90%;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #9C27B0; 
+    padding: 5px 10px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.form-search button {
+    box-sizing: border-box;
+    display: inline-block;
+    background: #9C27B0;
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+}
+
+.form-search button:hover {
+    color: #9C27B0;
+    border: 1px solid #9C27B0;
+    background: none;
+    transition: 0.3s ease all;
+}
+
+.search-area a {
+    font-size: 0.8em;
+    cursor: pointer;
+}
+
+.search-area a:hover {
+    transition: 0.3s ease all;
+    color: #9C27B0 !important ;
+}
+
+.filters select {
+    height: 40px !important;
+    font-size: 0.9em;
+}
+
+select.form-control  {
+    background: none;
+}
+
+select.form-control:-moz-read-only {
+    background: none;
+}
+
+// IDEAS SECTION
+// -------------
+
+.publish textarea {
+    width: 100%;
+    resize: none;
+    padding: 5px;
+    font-size: 1.2em;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.content {
+    overflow-y: hidden !important;
+}

@@ -1,9 +1,9 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <a href="/ideas/create"><button class="btn btn-primary btn-md">Adicionar <i class="fa fa-plus-circle" aria-hidden="true"></i></button></a>
+        <a href="/ideas-admin/create"><button class="btn btn-primary btn-md">Adicionar <i class="fa fa-plus-circle" aria-hidden="true"></i></button></a>
     </div>
     <hr>
     <div class="row">

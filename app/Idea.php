@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Idea extends Model
 {
     protected $fillable = [
-        'content', 'status'
+        'content', 'status' //0-Disponível | 1-Andamento | 2-Concluído
     ];
 
     public function user() {

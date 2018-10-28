@@ -33,5 +33,3 @@ mix.styles([
 mix.styles([
     'resources/themes/login/css/style.css'
 ], 'public/css/auth/style.css');
-
-mix.browserSync('127.0.0.1:8000');

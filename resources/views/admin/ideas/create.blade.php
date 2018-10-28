@@ -1,13 +1,13 @@
-@extends('layouts.admin') 
+@extends('layouts.app') 
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <a href="/ideas"><button class="btn btn-primary btn-md"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></button></a>
+        <a href="/ideas-admin"><button class="btn btn-primary btn-md"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></button></a>
     </div>
     <hr>
     <div class="row">
         <div class="col-12">
-            <form method="post" action="/ideas">
+            <form method="post" action="/ideas-admin">
                 @csrf
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Ideia</label>

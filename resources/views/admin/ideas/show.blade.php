@@ -1,8 +1,8 @@
-@extends('layouts.admin') 
+@extends('layouts.app') 
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <a href="/ideas"><button class="btn btn-primary btn-md"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></button></a>
+        <a href="/ideas-admin"><button class="btn btn-primary btn-md"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></button></a>
     </div>
     <hr>
     <div class="row">
