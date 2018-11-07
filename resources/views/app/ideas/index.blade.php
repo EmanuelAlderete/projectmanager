@@ -8,7 +8,7 @@
                 <form method="post" action="/ideas">
                     @csrf
                     <textarea name="content" cols="30" rows="3" maxlength="500" placeholder="Tem uma ideia?? Conta pra gente!!" v-model="ideaBox"></textarea>
-                    <button class="btn btn-danger">Publicar</button>
+                    <button class="btn btn-info">Publicar</button>
                 </form>
             </div>
         </div>
@@ -18,24 +18,14 @@
         <div class="row justify-content-md-center">
             <div class="col-sm-12 col-md-7">
                 <div class="card">
-                    <div class="card-header">
-                      @switch($idea->status)
-                          @case(0)
-                              {!! "<span class='badge badge-success'>Disponível</span>" !!}
-                              @break
-                          @case(1)
-                              {!! "<span class='badge badge-warning'>Em andamento</span>" !!}
-                              @break
-                          @case(2)
-                              {!! "<span class='badge badge-danger'>Concluída</span>" !!}
-                          @default
-                              
-                      @endswitch
-                    </div>
                     <div class="card-body">
                       <h5 class="card-title">{{ $idea->user->name }}</h5>
                       <p class="card-text">{{ $idea->content }}</p>
                       {{-- <a href="#" class="btn btn-success">Conhecer</a> --}}
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-heart"></i> Curtir</button>
+                        <button type="button" class="btn btn-dark btn-sm">Ver</button>
                     </div>
                   </div>
             </div>

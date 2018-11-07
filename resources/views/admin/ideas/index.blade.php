@@ -37,12 +37,12 @@
                         @endswitch
                     </td>
                     <td class="td-actions text-right">
-                        <a href="/ideas/{{ $idea->id }}">
+                        <a href="/ideas-admin/{{ $idea->id }}">
                             <button type="button" rel="tooltip" class="btn btn-info">
                                 <i class="material-icons">person</i>
                             </button>
                         </a>
-                        <a href="/ideas/{{ $idea->id }}/edit">
+                        <a href="/ideas-admin/{{ $idea->id }}/edit">
                             <button type="button" rel="tooltip" class="btn btn-success">
                                 <i class="material-icons">edit</i>
                             </button>
@@ -50,7 +50,7 @@
                         <button onclick="event.preventDefault();document.getElementById({{ $idea->id }}).submit();" rel="tooltip" class="btn btn-danger">
                             <i class="material-icons">close</i>
                         </button>
-                        <form id="{{ $idea->id }}" action="/ideas/{{ $idea->id }}" method="POST" style="display: none;">
+                        <form id="{{ $idea->id }}" action="/ideas-admin/{{ $idea->id }}" method="POST" style="display: none;">
                             @csrf
                             @method('delete')
                         </form>

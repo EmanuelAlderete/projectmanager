@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::namespace('App')->group(function () {
         Route::get('/search', 'SearchController@index');
+        Route::post('/search', 'SearchController@search');
         Route::Resource('/ideas', 'IdeaController')->only([
             'index', 'store'
         ]);

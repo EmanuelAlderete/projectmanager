@@ -61,7 +61,7 @@ class IdeaController extends Controller
         $idea->courses()->sync($request->get('courses'));
         $idea->departments()->sync($request->get('departments'));
 
-        return redirect('/ideas');
+        return redirect('/ideas-admin');
     }
 
     /**
@@ -116,7 +116,7 @@ class IdeaController extends Controller
         $idea->courses()->sync($request->get('courses'));
         $idea->departments()->sync($request->get('departments'));
 
-        return redirect('/ideas');
+        return redirect('/ideas-admin');
     }
 
     /**
@@ -128,6 +128,6 @@ class IdeaController extends Controller
     public function destroy($id)
     {
         Idea::destroy($id);
-        return redirect('/ideas');
+        return redirect('/ideas-admin');
     }
 }

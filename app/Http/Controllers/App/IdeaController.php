@@ -28,4 +28,11 @@ class IdeaController extends Controller
 
         return redirect('/ideas');
     }
+
+    public function like($idea_id) {
+        $like = Like::create([
+            'user_id' => Auth::user()->id,
+            'idea_id' => Idea::find($idea_id)
+        ]);
+    }
 }
