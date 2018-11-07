@@ -37,6 +37,10 @@ class User extends Authenticatable
         return $this->hasMany(Idea::class);
     }
 
+    public function likes() {
+        return $this->hasMany(Like::class);
+    }
+
     public function hasPermission(Permission $permission) {    
 
         return $this->hasAnyRoles($permission->roles);
