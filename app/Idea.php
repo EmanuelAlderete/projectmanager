@@ -21,4 +21,8 @@ class Idea extends Model
     public function departments() {
         return $this->belongsToMany(Department::class);
     }
+
+    public function likes() {
+        return $this->hasMany(Like::class);
+    }
 }

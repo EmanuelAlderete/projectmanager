@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -54,5 +55,29 @@ class User extends Authenticatable
         }
 
         return $this->roles->contains('name', $roles);
+    }
+
+    // Verify Like 
+    public function verifyLike($idea_id) {
+
+        $likes = Auth::user()->likes;
+        $idea = Idea::find($idea_id);
+        
+        foreach($likes as $like) {
+            if ($like->idea == $idea) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function dislike($idea_id) {
+        $likes = Auth::user()->likes;
+        
+        foreach ($likes as $like) {
+            if ($like->idea_id == $idea_id) {
+                $like->delete();
+            }
+        }
     }
 }

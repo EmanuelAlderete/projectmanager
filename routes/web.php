@@ -40,6 +40,7 @@ Route::middleware(['auth'])->group(function () {
         Route::Resource('/ideas', 'IdeaController')->only([
             'index', 'store'
         ]);
+        Route::post('/like', 'LikeController@index');
     });
 });
 

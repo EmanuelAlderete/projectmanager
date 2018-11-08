@@ -21,6 +21,11 @@ class SearchController extends Controller
 
         if ($request->all()) {
             $ideas = Idea::all();
+
+            if ($request->q) {
+                $ideas = Idea::where('content', 'like' ,'%' . $request->q . '%')->get();
+            }
+
             if ($request->departments) {
                 foreach ($request->departments as $department) {
                     $ideas = $ideas->filter(function ($idea) use ($department) {
