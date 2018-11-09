@@ -53,8 +53,8 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/ideas">
-                  <i class="material-icons"><i class="fas fa-lightbulb"></i></i>
-                  <p>Ideas</p>
+                  <i class="material-icons"><i class="fas fa-comment"></i></i>
+                  <p>Publicar Ideia</p>
                 </a>
               </li>
               @can('super-admin')

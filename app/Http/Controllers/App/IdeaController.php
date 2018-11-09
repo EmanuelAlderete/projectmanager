@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\App;
 
 use App\Idea;
+use App\Course;
+use App\Department;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,11 +12,14 @@ use Illuminate\Support\Facades\Auth;
 class IdeaController extends Controller
 {
     public function index() {
-        $ideas = Idea::all();
-        $ideas = $ideas->sortByDesc('created_at');
+        
+        $courses = Course::all();
+        $departments = Department::all();
+
         return view('app.ideas.index', [
-            'title' => 'Ideias',
-            'ideas' => $ideas
+            'title' => 'Publique sua Ideia',
+            'courses' => $courses,
+            'departments' => $departments
         ]);
         
     }
@@ -27,12 +32,5 @@ class IdeaController extends Controller
         ]);
 
         return redirect('/ideas');
-    }
-
-    public function like($idea_id) {
-        $like = Like::create([
-            'user_id' => Auth::user()->id,
-            'idea_id' => Idea::find($idea_id)
-        ]);
     }
 }
