@@ -38,7 +38,7 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
 
-            @can('access-user-menu')
+            @can('use-user-menu')
             <li class="nav-item active  ">
                 <a class="nav-link" href="/home">
                   <i class="material-icons">dashboard</i>

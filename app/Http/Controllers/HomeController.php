@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,8 +24,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.index', [
-            'title' => 'Dashboard'
-        ]);
+        $user = Auth::user();
+
+        if($user->can('super-admin')) {
+            return view('admin.index', [
+                'title' => 'Dashboard'
+            ]);
+        } else if ($user->can('use-user-menu')) {
+            return view('app.index', [
+                'title' => 'Dashboard'
+            ]);
+        }
+        
     }
 }

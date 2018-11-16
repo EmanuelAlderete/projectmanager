@@ -14,7 +14,7 @@
         <div class="col-12">
            <div class="filters invisible">
                     <div class="row">
-                        <div class="col-sm-12 col-md-4 col-lg-4">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
                             <label for="">Áreas:</label>
                             <select name="departments[]" class="form-control select2" id="departments" multiple>
                                 @foreach ($departments as $department)
@@ -22,20 +22,12 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-sm-12 col-md-4 col-lg-4">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
                             <label for="">Cursos:</label>
                             <select name="courses[]" class="form-control select2" id="courses" multiple>
                                 @foreach ($courses as $course)
                                     <option value="{{ $course->id }}" {{ $request->courses ? in_array($course->id,  $request->courses) ? 'selected' : '' : '' }}>{{ $course->name }}</option>
                                 @endforeach
-                            </select>
-                        </div>
-                        <div class="col-sm-12 col-md-4 col-lg-4">
-                            <label for="">Status:</label>
-                            <select name="status[]" class="form-control select2" id="status">
-                                <option value="0" {{ $request->status ? in_array(0,  $request->status) ? 'selected' : '' : '' }}>Disponível</option>
-                                <option value="1" {{ $request->status ? in_array(1,  $request->status) ? 'selected' : '' : ''}}>Em Andamento</option>
-                                <option value="2" {{ $request->status ? in_array(2,  $request->status) ? 'selected' : '' : ''}}>Concluído</option>
                             </select>
                         </div>
                     </div>
@@ -56,7 +48,7 @@
                     <div class="card-footer">
                     <button type="button" id="like-{{ $idea->id }}" onclick="likeidea({{ $idea->id }});" class="btn btn-danger btn-sm"><i class="far fa-heart {{ Auth::user()->verifyLike($idea->id) ? 'd-none' : '' }}"></i><i class="fas fa-heart {{ Auth::user()->verifyLike($idea->id) ? '' : 'd-none' }}"></i> Curtir</button>
                     <small>{{ count($idea->likes) }} Likes - Publicado em {{ $idea->created_at->format('d M Y') }}</small>
-                    <button type="button" class="btn btn-dark btn-sm">Ver</button>
+                    <a href="/ideas/{{ $idea->id }}" class="btn btn-dark btn-sm">Ver</a>
                 </div>
                </div>
            @empty

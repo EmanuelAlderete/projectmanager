@@ -16,7 +16,7 @@ class SearchController extends Controller
         $title = "Pesquisar";
         $departments = Department::all();
         $courses = Course::all();
-        $ideas = array();
+        $ideas = Idea::all()->sortByDesc('created_at');
         $filter = 'disable';
 
         if ($request->all()) {
@@ -42,13 +42,6 @@ class SearchController extends Controller
                 }
             }
 
-            if ($request->status) {
-                foreach ($request->status as $status) {
-                    $ideas = $ideas->filter(function ($idea) use ($status) {
-                        return $idea->status == $status;
-                    });
-                }
-            }
             $filter = 'enable';
         }
 

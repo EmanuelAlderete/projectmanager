@@ -25,12 +25,25 @@ class IdeaController extends Controller
     }
 
     public function store(Request $request) {
-        $idea = Idea::create([
-            'content' => $request->get('content'),
-            'status' => 0,
-            'user_id' => Auth::user()->id
-        ]);
+        $idea = new Idea();
+        $idea->content = $request->get('content');
+        $idea->status = 0;
+        $idea->user()->associate(Auth::user());
+
+        $idea->save();
+
+        $idea->courses()->sync($request->get('courses'));
+        $idea->departments()->sync($request->get('departments'));
 
         return redirect('/ideas');
+    }
+
+    public function show($id) {
+        $idea = Idea::find($id);
+
+        return view('app.ideas.show', [
+            'title' => 'Ideia de: ' . $idea->user->name,
+            'idea' => $idea
+        ]);
     }
 }
