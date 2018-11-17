@@ -31,13 +31,19 @@ Route::middleware(['auth'])->group(function () {
             Route::resource('/courses', 'CourseController');
             Route::resource('/institutions', 'InstitutionController');
             Route::resource('/ideas-admin', 'IdeaController');
+            Route::resource('/type-projects', 'TypeProjectController');
         });
     });
 
     Route::namespace('App')->group(function () {
+        // Pesquisa de Ideas
         Route::get('/search', 'SearchController@index');
         Route::post('/search', 'SearchController@search');
+
+        // Publicação Ideias
         Route::Resource('/ideas', 'IdeaController');
+
+        // Like
         Route::post('/like', 'LikeController@index');
     });
 });

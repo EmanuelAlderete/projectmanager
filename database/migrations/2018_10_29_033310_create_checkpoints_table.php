@@ -19,7 +19,7 @@ class CreateCheckpointsTable extends Migration
 
             $table->date('deadline')->nullable();
             $table->tinyInteger('priority')->nullable();
-            $table->text('objective');
+            $table->text('description');
 
             $table->unsignedInteger('project_id');
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');

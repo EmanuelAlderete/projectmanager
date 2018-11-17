@@ -30,7 +30,7 @@ class HomeController extends Controller
             return view('admin.index', [
                 'title' => 'Dashboard'
             ]);
-        } else if ($user->can('use-user-menu')) {
+        } else if ($user->can('access-menu')) {
             return view('app.index', [
                 'title' => 'Dashboard'
             ]);

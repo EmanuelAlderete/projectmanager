@@ -38,7 +38,7 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
 
-            @can('use-user-menu')
+            @can('access-menu')
             <li class="nav-item active  ">
                 <a class="nav-link" href="/home">
                   <i class="material-icons">dashboard</i>
@@ -58,6 +58,12 @@
                 </a>
               </li>
               @can('super-admin')
+              <li class="nav-item ">
+                <a class="nav-link" href="/type-projects">
+                  <i class="material-icons">settings</i>
+                  <p>Tipos de Projetos</p>
+                </a>
+              </li>
           <li class="nav-item ">
             <a class="nav-link" href="/users">
               <i class="material-icons">person</i>

@@ -42,7 +42,11 @@ class User extends Authenticatable
         return $this->hasMany(Like::class);
     }
 
-    public function hasPermission(Permission $permission) {    
+    public function projects() {
+        return $this->hasMany(Project::class);
+    }
+
+    public function hasPermission(Permission $permission) {
 
         return $this->hasAnyRoles($permission->roles);
 
@@ -57,12 +61,12 @@ class User extends Authenticatable
         return $this->roles->contains('name', $roles);
     }
 
-    // Verify Like 
+    // Verify Like
     public function verifyLike($idea_id) {
 
         $likes = Auth::user()->likes;
         $idea = Idea::find($idea_id);
-        
+
         foreach($likes as $like) {
             if ($like->idea == $idea) {
                 return true;
@@ -73,7 +77,7 @@ class User extends Authenticatable
 
     public function dislike($idea_id) {
         $likes = Auth::user()->likes;
-        
+
         foreach ($likes as $like) {
             if ($like->idea_id == $idea_id) {
                 $like->delete();
