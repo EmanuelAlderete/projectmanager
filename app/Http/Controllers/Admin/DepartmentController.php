@@ -15,12 +15,15 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Department::all();
+        if ($this->authorize('view')) {
+            $departments = Department::all();
 
-        return view('admin.departments.index', [
-            'departments' => $departments,
-            'title' => 'Áreas do Conhecimento'
-        ]);
+            return view('admin.departments.index', [
+                'departments' => $departments,
+                'title' => 'Áreas do Conhecimento'
+            ]);
+        }
+        return abort(401);
     }
 
     /**
@@ -30,9 +33,12 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        return view('admin.departments.create', [
-            'title' => 'Criar Área'
-        ]);
+        if ($this->authorize('create')) {
+            return view('admin.departments.create', [
+                'title' => 'Criar Área'
+            ]);
+        }
+        return abort(401);
     }
 
     /**
@@ -61,12 +67,15 @@ class DepartmentController extends Controller
      */
     public function show($id)
     {
-        $department = Department::find($id);
+        if ($this->authorize('view')) {
+            $department = Department::find($id);
 
-        return view('admin.departments.show', [
-            'department' => $department,
-            'title' => 'Área: '.$department->name
-        ]);
+            return view('admin.departments.show', [
+                'department' => $department,
+                'title' => 'Área: ' . $department->name
+            ]);
+        }
+        return abort(401);
     }
 
     /**
@@ -77,12 +86,15 @@ class DepartmentController extends Controller
      */
     public function edit($id)
     {
-        $department = Department::find($id);
+        if ($this->authorize('update')) {
+            $department = Department::find($id);
 
-        return view('admin.departments.edit', [
-            'department' => $department,
-            'title' => 'Editar Área'
-        ]);
+            return view('admin.departments.edit', [
+                'department' => $department,
+                'title' => 'Editar Área'
+            ]);
+        }
+        return abort(401);
     }
 
     /**
@@ -113,8 +125,11 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        Department::destroy($id);
+        if ($this->authorize('delete')) {
+            Department::destroy($id);
 
-        return redirect('/departments');
+            return redirect('/departments');
+        }
+        return abort(401);
     }
 }

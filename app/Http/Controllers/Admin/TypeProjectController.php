@@ -15,12 +15,15 @@ class TypeProjectController extends Controller
      */
     public function index()
     {
-        $tps = TypeProject::all();
+        if ($this->authorize('view')) {
+            $tps = TypeProject::all();
 
-        return view('admin.type-projects.index', [
-            'title' => 'Tipos de Projetos',
-            'types' => $tps
-        ]);
+            return view('admin.type-projects.index', [
+                'title' => 'Tipos de Projetos',
+                'types' => $tps
+            ]);
+        }
+        return abort(401);
     }
 
     /**
@@ -30,9 +33,12 @@ class TypeProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.type-projects.create', [
-            'title' => 'Criar um Tipo de Projeto'
-        ]);
+        if ($this->authorize('create')) {
+            return view('admin.type-projects.create', [
+                'title' => 'Criar um Tipo de Projeto'
+            ]);
+        }
+        return abort(401);
     }
 
     /**
@@ -60,12 +66,15 @@ class TypeProjectController extends Controller
      */
     public function show($id)
     {
-        $type = TypeProject::find($id);
+        if ($this->authorize('view')) {
+            $type = TypeProject::find($id);
 
-        return view('admin.type-projects.show', [
-            'title' => 'Tipo: ' . $type->name,
-            'type' => $type
-        ]);
+            return view('admin.type-projects.show', [
+                'title' => 'Tipo: ' . $type->name,
+                'type' => $type
+            ]);
+        }
+        return abort(401);
     }
 
     /**
@@ -76,12 +85,15 @@ class TypeProjectController extends Controller
      */
     public function edit($id)
     {
-        $type = TypeProject::find($id);
+        if ($this->authorize('update')) {
+            $type = TypeProject::find($id);
 
-        return view('admin.type-projects.edit', [
-            'title' => 'Editar: ' . $type->name,
-            'type' => $type
-        ]);
+            return view('admin.type-projects.edit', [
+                'title' => 'Editar: ' . $type->name,
+                'type' => $type
+            ]);
+        }
+        return abort(401);
     }
 
     /**
@@ -110,8 +122,11 @@ class TypeProjectController extends Controller
      */
     public function destroy($id)
     {
-        TypeProject::destroy($id);
+        if ($this->authorize('delete')) {
+            TypeProject::destroy($id);
 
-        return redirect('/type-projects');
+            return redirect('/type-projects');
+        }
+        return abort(401);
     }
 }

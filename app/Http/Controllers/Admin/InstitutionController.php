@@ -16,12 +16,16 @@ class InstitutionController extends Controller
      */
     public function index()
     {
-        $institutions = Institution::all();
+        if ($this->authorize('view')) {
+            $institutions = Institution::all();
 
-        return view('admin.institutions.index', [
-            'institutions' => $institutions,
-            'title' => 'Instituições'
-        ]);
+            return view('admin.institutions.index', [
+                'institutions' => $institutions,
+                'title' => 'Instituições'
+            ]);
+
+        }
+        return abort(401);
     }
 
     /**
@@ -31,12 +35,15 @@ class InstitutionController extends Controller
      */
     public function create()
     {
-        $courses = Course::all();
+        if ($this->authorize('create')) {
+            $courses = Course::all();
 
-        return view('admin.institutions.create', [
-            'courses' => $courses,
-            'title' => 'Criar Instituição'
-        ]);
+            return view('admin.institutions.create', [
+                'courses' => $courses,
+                'title' => 'Criar Instituição'
+            ]);
+        }
+        return abort(401);
     }
 
     /**
@@ -66,12 +73,15 @@ class InstitutionController extends Controller
      */
     public function show($id)
     {
-        $institution = Institution::find($id);
+        if ($this->authorize('view')) {
+            $institution = Institution::find($id);
 
-        return view('admin.institutions.show', [
-            'institution' => $institution,
-            'title' => 'Instituição: '.$institution->name
-        ]);
+            return view('admin.institutions.show', [
+                'institution' => $institution,
+                'title' => 'Instituição: ' . $institution->name
+            ]);
+        }
+        return abort(401);
     }
 
     /**
@@ -82,14 +92,17 @@ class InstitutionController extends Controller
      */
     public function edit($id)
     {
-        $institution = Institution::find($id);
-        $courses = Course::all();
+        if ($this->authorize('update')) {
+            $institution = Institution::find($id);
+            $courses = Course::all();
 
-        return view('admin.institutions.edit', [
-            'institution' => $institution,
-            'courses' => $courses,
-            'title' => 'Editar Instituição'
-        ]);
+            return view('admin.institutions.edit', [
+                'institution' => $institution,
+                'courses' => $courses,
+                'title' => 'Editar Instituição'
+            ]);
+        }
+        return abort(401);
     }
 
     /**
@@ -120,7 +133,10 @@ class InstitutionController extends Controller
      */
     public function destroy($id)
     {
-        Institution::destroy($id);
-        return redirect('/institutions');
+        if ($this->authorize('delete')) {
+            Institution::destroy($id);
+            return redirect('/institutions');
+        }
+        return abort(401);
     }
 }

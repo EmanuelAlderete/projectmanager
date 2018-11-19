@@ -17,12 +17,16 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::all();
+        if($this->authorize('view')) {
+            $courses = Course::all();
 
-        return view('admin.courses.index', [
-            'courses' => $courses,
-            'title' => 'Cursos'
-        ]);
+            return view('admin.courses.index', [
+                'courses' => $courses,
+                'title' => 'Cursos'
+            ]);
+        }
+
+        return abort(401);
     }
 
     /**
@@ -32,14 +36,18 @@ class CourseController extends Controller
      */
     public function create()
     {
-        $departments = Department::all();
-        $degrees = Degree::all();
+        if($this->authorize('create')) {
+            $departments = Department::all();
+            $degrees = Degree::all();
 
-        return view('admin.courses.create', [
-            'departments' => $departments,
-            'degrees' => $degrees,
-            'title' => 'Criar Curso',
-        ]);
+            return view('admin.courses.create', [
+                'departments' => $departments,
+                'degrees' => $degrees,
+                'title' => 'Criar Curso',
+            ]);
+        }
+
+        return abort(401);
     }
 
     /**
@@ -75,12 +83,16 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        $course = Course::find($id);
+        if($this->authorize('view')) {
+            $course = Course::find($id);
 
-        return view('admin.courses.show', [
-            'course' => $course,
-            'title' => 'Curso: '.$course->name
-        ]);
+            return view('admin.courses.show', [
+                'course' => $course,
+                'title' => 'Curso: '.$course->name
+            ]);
+        }
+        return abort(401);
+
     }
 
     /**
@@ -91,16 +103,22 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        $course = Course::find($id);
-        $departments = Department::all();
-        $degrees = Degree::all();
+        if($this->authorize('update')) {
 
-        return view('admin.courses.edit', [
-            'course' => $course,
-            'departments' => $departments,
-            'degrees' => $degrees,
-            'title' => 'Editar Curso',
-        ]);
+            $course = Course::find($id);
+            $departments = Department::all();
+            $degrees = Degree::all();
+
+            return view('admin.courses.edit', [
+                'course' => $course,
+                'departments' => $departments,
+                'degrees' => $degrees,
+                'title' => 'Editar Curso',
+            ]);
+        }
+
+        return abort(401);
+
     }
 
     /**
@@ -137,7 +155,10 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        Course::destroy($id);
-        return redirect('/courses');
+        if($this->authorize('delete')) {
+            Course::destroy($id);
+            return redirect('/courses');
+        }
+        return abort(401);
     }
 }

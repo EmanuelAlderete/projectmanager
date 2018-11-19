@@ -15,12 +15,15 @@ class DegreeController extends Controller
      */
     public function index()
     {
-        $degrees = Degree::all();
+        if ($this->authorize('view')) {
+            $degrees = Degree::all();
 
-        return view('admin.degrees.index', [
-            'degrees' => $degrees,
-            'title' => 'Graduações'
-        ]);
+            return view('admin.degrees.index', [
+                'degrees' => $degrees,
+                'title' => 'Graduações'
+            ]);
+        }
+        return abort(401);
     }
 
     /**
@@ -30,9 +33,13 @@ class DegreeController extends Controller
      */
     public function create()
     {
-        return view('admin.degrees.create', [
-            'title' => 'Criar Graduação'
-        ]);
+        if ($this->authorize('create')) {
+            return view('admin.degrees.create', [
+                'title' => 'Criar Graduação'
+            ]);
+        }
+
+        return abort(401);
     }
 
     /**
@@ -59,12 +66,16 @@ class DegreeController extends Controller
      */
     public function show($id)
     {
-        $degree = Degree::find($id);
+        if ($this->authorize('view')) {
+            $degree = Degree::find($id);
 
-        return view('admin.degrees.show', [
-            'degree' => $degree,
-            'title' => 'Graduação: '.$degree->name
-        ]);
+            return view('admin.degrees.show', [
+                'degree' => $degree,
+                'title' => 'Graduação: ' . $degree->name
+            ]);
+        }
+
+        return abort(401);
     }
 
     /**
@@ -75,12 +86,16 @@ class DegreeController extends Controller
      */
     public function edit($id)
     {
-        $degree = Degree::find($id);
+        if ($this->authorize('update')) {
+            $degree = Degree::find($id);
 
-        return view('admin.degrees.edit', [
-            'degree' => $degree,
-            'title' => 'Editar Graduação'
-        ]);
+            return view('admin.degrees.edit', [
+                'degree' => $degree,
+                'title' => 'Editar Graduação'
+            ]);
+        }
+
+        return abort(401);
     }
 
     /**
@@ -109,7 +124,11 @@ class DegreeController extends Controller
      */
     public function destroy($id)
     {
-        Degree::destroy($id);
-        return redirect('/degrees');
+        if ($this->authorize('delete')) {
+            Degree::destroy($id);
+            return redirect('/degrees');
+        }
+
+        return abort(401);
     }
 }

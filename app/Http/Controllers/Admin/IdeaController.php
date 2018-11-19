@@ -18,12 +18,15 @@ class IdeaController extends Controller
      */
     public function index()
     {
-        $ideas = Idea::all();
+        if ($this->authorize('view')) {
+            $ideas = Idea::all();
 
-        return view('admin.ideas.index', [
-            'ideas' => $ideas,
-            'title' => 'Ideias'
-        ]);
+            return view('admin.ideas.index', [
+                'ideas' => $ideas,
+                'title' => 'Ideias'
+            ]);
+        }
+        return abort(401);
     }
 
     /**
@@ -33,14 +36,17 @@ class IdeaController extends Controller
      */
     public function create()
     {
-        $courses = Course::all();
-        $departments = Department::all();
+        if ($this->authorize('create')) {
+            $courses = Course::all();
+            $departments = Department::all();
 
-        return view('admin.ideas.create', [
-            'courses' => $courses,
-            'departments' => $departments,
-            'title' => 'Criar Ideia'
-        ]);
+            return view('admin.ideas.create', [
+                'courses' => $courses,
+                'departments' => $departments,
+                'title' => 'Criar Ideia'
+            ]);
+        }
+        return abort(401);
     }
 
     /**
@@ -72,12 +78,15 @@ class IdeaController extends Controller
      */
     public function show($id)
     {
-        $idea = Idea::find($id);
+        if ($this->authorize('view')) {
+            $idea = Idea::find($id);
 
-        return view('admin.ideas.show', [
-            'idea' => $idea,
-            'title' => 'Ideia'
-        ]);
+            return view('admin.ideas.show', [
+                'idea' => $idea,
+                'title' => 'Ideia'
+            ]);
+        }
+        return abort(401);
     }
 
     /**
@@ -87,17 +96,20 @@ class IdeaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   
-        $idea = Idea::find($id);
-        $courses = Course::all();
-        $departments = Department::all();
+    {
+        if ($this->authorize('update')) {
+            $idea = Idea::find($id);
+            $courses = Course::all();
+            $departments = Department::all();
 
-        return view('admin.ideas.edit', [
-            'idea' => $idea,
-            'courses' => $courses,
-            'departments' => $departments,
-            'title' => 'Criar Ideia'
-        ]);
+            return view('admin.ideas.edit', [
+                'idea' => $idea,
+                'courses' => $courses,
+                'departments' => $departments,
+                'title' => 'Criar Ideia'
+            ]);
+        }
+        return abort(401);
     }
 
     /**
@@ -108,7 +120,7 @@ class IdeaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   
+    {
         $idea = Idea::find($id);
         $idea->content = $request->get('content');
         $idea->status = $request->get('status');
@@ -127,7 +139,10 @@ class IdeaController extends Controller
      */
     public function destroy($id)
     {
-        Idea::destroy($id);
-        return redirect('/ideas-admin');
+        if ($this->authorize('delete')) {
+            Idea::destroy($id);
+            return redirect('/ideas-admin');
+        }
+        return abort(401);
     }
 }
