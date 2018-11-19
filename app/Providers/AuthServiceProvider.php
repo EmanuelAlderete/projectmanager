@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\Idea;
 use App\Policies\IdeaPolicy;
+use Illuminate\Support\Facades\Schema;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -32,12 +33,14 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
         Passport::routes();
 
-        $permissions = Permission::with('roles')->get();
+        if (Schema::hasTable('permissions')) {
+            $permissions = Permission::with('roles')->get();
 
-        foreach ($permissions as $permission) {
-            Gate::define($permission->name, function(User $user) use ($permission) {
-                return $user->hasPermission($permission);
-            });
+            foreach ($permissions as $permission) {
+                Gate::define($permission->name, function(User $user) use ($permission) {
+                    return $user->hasPermission($permission);
+                });
+            }
         }
     }
 }

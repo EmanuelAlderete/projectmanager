@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
 
-        if($user->can('super-admin')) {
+        if($user->can('access-menu-root')) {
             return view('admin.index', [
                 'title' => 'Dashboard'
             ]);
@@ -35,6 +35,6 @@ class HomeController extends Controller
                 'title' => 'Dashboard'
             ]);
         }
-        
+
     }
 }

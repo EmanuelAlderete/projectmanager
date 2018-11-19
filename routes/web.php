@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::namespace('App')->group(function () {
+
         // Pesquisa de Ideas
         Route::get('/search', 'SearchController@index');
         Route::post('/search', 'SearchController@search');
@@ -45,6 +46,10 @@ Route::middleware(['auth'])->group(function () {
 
         // Like
         Route::post('/like', 'LikeController@index');
+
+        // Rotas de Projeto
+        Route::get('/projects', 'HomeProjectsController@index');
+        Route::get('/projects/start-new-project', 'HomeProjectsController@start');
     });
 });
 

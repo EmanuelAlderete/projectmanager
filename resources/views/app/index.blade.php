@@ -9,7 +9,7 @@
             <div class="card-icon">
               <i class="material-icons">inbox</i>
             </div>
-            <p class="card-category"><a href="">Meus Projetos</a></p>
+            <p class="card-category"><a href="/projects">Meus Projetos</a></p>
             <h3 class="card-title">0
               <small></small>
             </h3>

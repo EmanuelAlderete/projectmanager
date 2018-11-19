@@ -57,7 +57,7 @@
                   <p>Publicar Ideia</p>
                 </a>
               </li>
-              @can('super-admin')
+              @can('access-menu-root')
               <li class="nav-item ">
                 <a class="nav-link" href="/type-projects">
                   <i class="material-icons">settings</i>
