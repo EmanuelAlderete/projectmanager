@@ -24,7 +24,7 @@ class RolesTableSeeder extends Seeder
         $role = Role::create(['name' => 'creator', 'label' => 'Usuário que cria']);
         $role->permissions()->sync(['2', '3', '4', '5']);
 
-        // 004
+        // 004s
         $role = Role::create(['name' => 'editor', 'label' => 'Usuário que edita']);
         $role->permissions()->sync(['1', '2', '3', '4', '5', '6']);
 
