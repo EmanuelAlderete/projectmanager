@@ -32,7 +32,8 @@ class HomeController extends Controller
             ]);
         } else if ($user->can('access-menu')) {
             return view('app.index', [
-                'title' => 'Dashboard'
+                'title' => 'Dashboard',
+                'nProjetos' => count(Auth::user()->projects)
             ]);
         }
 

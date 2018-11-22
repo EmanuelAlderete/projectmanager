@@ -18,7 +18,8 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('root123'),
             'gender' => '0',
             'teacher' => '1',
-            'registry' => '007'
+            'registry' => '007',
+            'public_id' => '007'
         ]);
 
         $userRoot->roles()->sync(['1']);

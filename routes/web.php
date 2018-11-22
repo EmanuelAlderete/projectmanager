@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/institutions', 'InstitutionController');
         Route::resource('/ideas-admin', 'IdeaController');
         Route::resource('/type-projects', 'TypeProjectController');
+        Route::resource('/tags', 'TagsController');
     });
 
     Route::namespace('App')->group(function () {
@@ -48,8 +49,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/like', 'LikeController@index');
 
         // Rotas de Projeto
-        Route::get('/projects', 'HomeProjectsController@index');
-        Route::get('/projects/start-new-project', 'HomeProjectsController@start');
+        Route::resource('/projects', 'ProjectsController');
+        Route::get('/project/{id}', 'ProjectController@index');
     });
 });
 

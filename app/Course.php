@@ -18,11 +18,15 @@ class Course extends Model
         return $this->belongsTo(Department::class);
     }
 
+    public function ideas() {
+        return $this->belongsToMany(Idea::class);
+    }
+
     public function institutions() {
         return $this->belongsToMany(Institution::class);
     }
 
-    public function ideas() {
-        return $this->belongsToMany(Idea::class);
+    public function projects() {
+        return $this->hasMany(Project::class);
     }
 }

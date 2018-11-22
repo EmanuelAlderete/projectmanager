@@ -5,16 +5,16 @@
         <div class="col-sm-12 col-md-5 search-area">
             <form action="/search" method="get" class="form-search" id="form-text">
                 <input type="hidden" id="filter" name="filter" value="{{ $filter }}">
-                <input type="search" name="q" id="q" value="{{ $request->q }}" placeholder="Pesquise algo..." autofocus>
-                <button type="submit" id="submit-btn"><i class="fas fa-search"></i></button> 
-                <button type="button" id="filters-toggle"><i class="fas fa-filter"></i></button>
+                <input type="search" class="form-control" name="q" id="q" value="{{ $request->q }}" placeholder="Pesquise algo..." autofocus>
+                <button type="submit" class="btn btn-primary btn-round" id="submit-btn"><i class="fas fa-search"></i></button>
+                <button type="button" class="btn btn-primary btn-round" id="filters-toggle"><i class="fas fa-filter"></i></button>
         </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-12">
            <div class="filters invisible">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-6 col-lg-6">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-12 col-md-4 col-lg-4">
                             <label for="">Áreas:</label>
                             <select name="departments[]" class="form-control select2" id="departments" multiple>
                                 @foreach ($departments as $department)
@@ -22,7 +22,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="col-sm-12 col-md-4 col-lg-4">
                             <label for="">Cursos:</label>
                             <select name="courses[]" class="form-control select2" id="courses" multiple>
                                 @foreach ($courses as $course)
@@ -40,7 +40,7 @@
            @forelse ($ideas as $idea)
                <div class="card">
                     <div class="card-header">
-                        <p>{{ ucwords($idea->user->name) }}</p> 
+                        <p>{{ ucwords($idea->user->name) }}</p>
                     </div>
                     <div class="card-body">
                        <p>{{ $idea->content }}</p>
@@ -52,7 +52,7 @@
                 </div>
                </div>
            @empty
-               
+
            @endforelse
         </div>
     </div>
@@ -60,7 +60,7 @@
 
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-    
+
 {{-- Filter Scripts --}}
 <script>
     if($('#filter').val() ==  'enable') {
@@ -71,7 +71,7 @@
         $('div.filters').toggleClass('invisible');
     });
 
-    // 
+    //
     $(document).ready(function (event) {
         $('.select2').select2();
     })
@@ -109,7 +109,7 @@
     //            q: q,
     //            departments: departments,
     //            courses: courses,
-    //            status: status 
+    //            status: status
     //         },
 
     //        success:function(result){
@@ -129,9 +129,9 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        
+
         $.ajax({
-            
+
            type:'post',
            url:'/like',
            data: {
@@ -143,7 +143,7 @@
            }
         });
 
-        
+
     }
 
 </script>

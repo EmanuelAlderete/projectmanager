@@ -18,4 +18,8 @@ class Department extends Model
     public function ideas() {
         return $this->belongsToMany(Idea::class);
     }
+
+    public function tags() {
+        return $this->belongsToMany(Tag::class);
+    }
 }

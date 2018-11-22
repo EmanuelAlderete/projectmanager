@@ -2,73 +2,25 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="card card-stats">
-          <div class="card-header card-header-warning card-header-icon">
-            <div class="card-icon">
-              <i class="material-icons">inbox</i>
-            </div>
-            <p class="card-category"><a href="/projects">Meus Projetos</a></p>
-            <h3 class="card-title">0
-              <small></small>
-            </h3>
-          </div>
-          <div class="card-footer">
-            <div class="stats">
-                <i class="material-icons">report</i> Você pode gerenciar seus projetos!
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="card card-stats">
-          <div class="card-header card-header-success card-header-icon">
-            <div class="card-icon">
-              <i class="material-icons">store</i>
-            </div>
-            <p class="card-category">Revenue</p>
-            <h3 class="card-title">$34,245</h3>
-          </div>
-          <div class="card-footer">
-            <div class="stats">
-              <i class="material-icons">date_range</i> Last 24 Hours
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card card-profile">
+              <div class="card-avatar">
+                <a href="#pablo">
+                  <img class="img" src="../assets/img/faces/marc.jpg">
+                </a>
+              </div>
+              <div class="card-body">
+                <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                <h4 class="card-title">{{ Auth::user()->name }}</h4>
+                <p class="card-description">
+                  Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                </p>
+                <a href="#pablo" class="btn btn-primary btn-round">Editar</a>
+                <a href="/projects" class="btn btn-primary btn-round">Meus Projetos</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="card card-stats">
-          <div class="card-header card-header-danger card-header-icon">
-            <div class="card-icon">
-              <i class="material-icons">info_outline</i>
-            </div>
-            <p class="card-category">Fixed Issues</p>
-            <h3 class="card-title">75</h3>
-          </div>
-          <div class="card-footer">
-            <div class="stats">
-              <i class="material-icons">local_offer</i> Tracked from Github
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="card card-stats">
-          <div class="card-header card-header-info card-header-icon">
-            <div class="card-icon">
-              <i class="fa fa-twitter"></i>
-            </div>
-            <p class="card-category">Followers</p>
-            <h3 class="card-title">+245</h3>
-          </div>
-          <div class="card-footer">
-            <div class="stats">
-              <i class="material-icons">update</i> Just Updated
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 @endsection
