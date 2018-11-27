@@ -13,7 +13,7 @@
                     </div>
                 </div>
             </div>
-            @forelse ($projects as $project)
+            @foreach ($projects as $project)
                 <div class="col-md-4 col-sm-12">
                     <div class="card">
                         <div class="card-header">
@@ -28,16 +28,7 @@
                         </div>
                     </div>
                 </div>
-            @empty
-                <div class="card">
-                    <div class="card-header card-header-primary">
-                        <h3>Parece que você ainda não iniciou nenhum projeto...</h3>
-                    </div>
-                    <div class="card-body">
-                        <a href="/projects/create">Clique aqui</a> para começar um novo projeto
-                    </div>
-                </div>
-            @endforelse
+            @endforeach
         </div>
     </div>
 @endsection

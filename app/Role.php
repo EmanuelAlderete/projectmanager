@@ -12,7 +12,7 @@ class Role extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'label',
+        'name', 'label', 'type'
     ];
 
     public function permissions() {
@@ -21,5 +21,9 @@ class Role extends Model
 
     public function users() {
         return $this->belongsToMany(User::class);
+    }
+
+    public function roleProject() {
+        return $this->belongsTo(RoleProject::class);
     }
 }

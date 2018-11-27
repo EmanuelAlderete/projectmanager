@@ -50,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
 
         // Rotas de Projeto
         Route::resource('/projects', 'ProjectsController');
+        Route::resource('/project/{id}/checkpoints', 'CheckpointsController');
         Route::get('/project/{id}', 'ProjectController@index');
     });
 });

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Checkpoint;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -23,8 +24,16 @@ class Project extends Model
         return $this->hasMany(Course::class);
     }
 
+    public function checkpoints() {
+        return $this->hasMany(Checkpoint::class);
+    }
+
     public function departments() {
         return $this->hasMany(Department::class);
+    }
+
+    public function roleProject() {
+        return $this->belongsTo(RoleProject::class);
     }
 
     public function tags() {
