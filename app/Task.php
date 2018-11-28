@@ -9,10 +9,10 @@ class Task extends Model
 {
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'description', 'status', 'checkpoint_id'
+        'description', 'status', 'todolist_id'
     ];
 
-    public function checkpoint() {
-        return $this->belongsTo(Checkpoint::class);
+    public function todolist() {
+        return $this->belongsTo(Todolist::class);
     }
 }

@@ -20,6 +20,10 @@ class CreateProjectsTable extends Migration
             $table->text('title');
             $table->text('description');
             $table->text('authors');
+            //
+            $table->string('teacher_id')->nullable();
+            $table->text('subject')->nullable();
+            $table->date('deadline')->nullable();
 
             $table->unsignedInteger('type_project_id');
             $table->foreign('type_project_id')->references('id')->on('type_projects')->onDelete('cascade');

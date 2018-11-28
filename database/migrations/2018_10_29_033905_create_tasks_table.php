@@ -19,11 +19,11 @@ class CreateTasksTable extends Migration
 
             $table->text('description');
             $table->tinyInteger('status')->default(0);
-            
-            $table->unsignedInteger('checkpoint_id');
-            $table->foreign('checkpoint_id')->references('id')->on('checkpoints')->onDelete('cascade');
- 
-            $table->softDeletes();          
+
+            $table->unsignedInteger('todolist_id');
+            $table->foreign('todolist_id')->references('id')->on('todolists')->onDelete('cascade');
+
+            $table->softDeletes();
         });
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCheckpointsTable extends Migration
+class CreateTodolistsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateCheckpointsTable extends Migration
      */
     public function up()
     {
-        Schema::create('checkpoints', function (Blueprint $table) {
+        Schema::create('todolists', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
 
             $table->date('deadline')->nullable();
             $table->tinyInteger('priority')->nullable();
             $table->text('description');
+            $table->tinyInteger('status')->default(0);
 
             $table->unsignedInteger('project_id');
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
@@ -36,6 +37,6 @@ class CreateCheckpointsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('checkpoints');
+        Schema::dropIfExists('todolists');
     }
 }

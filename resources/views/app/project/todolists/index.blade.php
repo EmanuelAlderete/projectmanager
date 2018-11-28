@@ -2,12 +2,13 @@
 
 @section('content')
 <div class="container-fluid" id="area">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Novo checkpoint</button>
+    <a href="/project/{{ $project->id }}" class="btn btn-primary btn-fab btn-fab-mini btn-round"><i class="material-icons">arrow_back</i></a>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Novo todolist</button>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Criar novo checkpoint</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Criar novo todolist</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -50,26 +51,26 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="button" onclick="createCheckpoint();" data-dismiss="modal" class="btn btn-primary">Salvar</button>
+                <button type="button" onclick="createTodolist();" data-dismiss="modal" class="btn btn-primary">Salvar</button>
             </div>
             </div>
         </div>
     </div>
     <div class="row" id="list">
-        @forelse ($project->checkpoints as $checkpoint)
+        @forelse ($project->todolists as $todolist)
             <div class="col-lg-4 col-md-4 col-sm-12">
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <p> Data de entrega: <strong>{{ date_format(date_create($checkpoint->deadline), "Y/m/d") }}</strong>
-                            <small> - {{ $checkpoint->status == 1 ? 'Concluído' : 'Em andamento' }}</small>
+                        <p> Data de entrega: <strong>{{ date_format(date_create($todolist->deadline), "Y/m/d") }}</strong>
+                            <small> - {{ $todolist->status == 0 ? 'Em andamento' : $todolist->status == 1 ? 'Parado' : 'Concluído' }}</small>
                         </p>
                     </div>
                     <div class="card-body">
-                        <strong>Descrição:</strong> {{ $checkpoint->description }}
+                        <strong>Descrição:</strong> {{ $todolist->description }}
                         <hr>
                         <strong>Tarefas:</strong>
                         <ul class="tasks-list">
-                            @forelse ($checkpoint->tasks as $task)
+                            @forelse ($todolist->tasks as $task)
                                 <li>{{ $task->description }}</li>
                             @empty
                                 <li>Não há tarefas.</li>
@@ -87,7 +88,7 @@
 @section('scripts')
 <script>
 
-    function createCheckpoint() {
+    function createTodolist() {
 
         var description = $('#description').val();
         var deadline = $('#deadline').val();
@@ -116,7 +117,7 @@
 
             $.ajax({
             method: "POST",
-            url: "checkpoints",
+            url: "todolists",
             data: {
                 description: description,
                 deadline: deadline,

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\App;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Project;
-use App\Checkpoint;
+use App\Todolist;
 use App\Task;
 
 class CheckpointsController extends Controller
@@ -19,7 +19,7 @@ class CheckpointsController extends Controller
     {
         $project = Project::find($id);
 
-        return view('app.project.checkpoints.index' , [
+        return view('app.project.todolists.index' , [
             'title' => 'Checkpoints',
             'project' => $project
         ]);
@@ -34,7 +34,7 @@ class CheckpointsController extends Controller
     {
         $project = Project::find($id);
 
-        return view('app.project.checkpoints.create' , [
+        return view('app.project.todolists.create' , [
             'title' => 'Checkpoints',
             'project' => $project
         ]);
@@ -48,7 +48,7 @@ class CheckpointsController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $checkpoint = Checkpoint::create([
+        $todolist = Todolist::create([
             'description' => $request->description,
             'deadline' => $request->deadline,
             'priority' => $request->priority,
@@ -59,11 +59,11 @@ class CheckpointsController extends Controller
             $new_task = Task::create([
                 'description' => $task,
                 'status' => 0,
-                'checkpoint_id' => $checkpoint->id
+                'todolist_id' => $todolist->id
             ]);
         }
 
-        return response()->json($checkpoint->load('tasks'));
+        return response()->json($todolist->load('tasks'));
     }
 
     /**

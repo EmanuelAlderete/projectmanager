@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Checkpoint;
+use App\Todolist;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -24,8 +24,8 @@ class Project extends Model
         return $this->hasMany(Course::class);
     }
 
-    public function checkpoints() {
-        return $this->hasMany(Checkpoint::class);
+    public function todolists() {
+        return $this->hasMany(Todolist::class);
     }
 
     public function departments() {

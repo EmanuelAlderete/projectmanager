@@ -10,13 +10,12 @@
                   <i class="material-icons">place</i>
                 </div>
                 <p class="card-category">Checkpoints</p>
-                <h3 class="card-title">{{ count($project->checkpoints->where('status', 1)) }}
-                  <small>/{{ count($project->checkpoints) }}</small>
+                <h3 class="card-title">{{ count($project->todolists) }}
                 </h3>
               </div>
               <div class="card-footer">
                 <div class="stats">
-                  <a href="/project/{{ $project->id }}/checkpoints">Ver</a>
+                  <a href="/project/{{ $project->id }}/todolists">Ver</a>
                 </div>
               </div>
             </div>
@@ -79,20 +78,14 @@
                     <span class="nav-tabs-title">Tarefas:</span>
                     <ul class="nav nav-tabs" data-tabs="tabs">
                       <li class="nav-item">
-                        <a class="nav-link active" href="#profile" data-toggle="tab">
+                        <a class="nav-link active" href="#inprogress" data-toggle="tab">
                           <i class="material-icons">hourglass_empty</i> Em andamento
                           <div class="ripple-container"></div>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="#messages" data-toggle="tab">
+                        <a class="nav-link" href="#completed" data-toggle="tab">
                           <i class="material-icons">done_all</i> Concluídas
-                          <div class="ripple-container"></div>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#settings" data-toggle="tab">
-                          <i class="material-icons">delete_sweep</i> Deletadas
                           <div class="ripple-container"></div>
                         </a>
                       </li>
@@ -102,213 +95,60 @@
               </div>
               <div class="card-body">
                 <div class="tab-content">
-                  <div class="tab-pane active" id="profile">
+                  <div class="tab-pane active" id="inprogress">
                     <table class="table">
                       <tbody>
-                        <tr>
-                          <td>
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" value="" checked="">
-                                <span class="form-check-sign">
-                                  <span class="check"></span>
-                                </span>
-                              </label>
-                            </div>
-                          </td>
-                          <td>Sign contract for "What are conference organizers afraid of?"</td>
-                          <td class="td-actions text-right">
-                            <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
-                              <i class="material-icons">edit</i>
-                            </button>
-                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
-                              <i class="material-icons">close</i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <span class="form-check-sign">
-                                  <span class="check"></span>
-                                </span>
-                              </label>
-                            </div>
-                          </td>
-                          <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                          <td class="td-actions text-right">
-                            <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
-                              <i class="material-icons">edit</i>
-                            </button>
-                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
-                              <i class="material-icons">close</i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <span class="form-check-sign">
-                                  <span class="check"></span>
-                                </span>
-                              </label>
-                            </div>
-                          </td>
-                          <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                          </td>
-                          <td class="td-actions text-right">
-                            <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
-                              <i class="material-icons">edit</i>
-                            </button>
-                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
-                              <i class="material-icons">close</i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" value="" checked="">
-                                <span class="form-check-sign">
-                                  <span class="check"></span>
-                                </span>
-                              </label>
-                            </div>
-                          </td>
-                          <td>Create 4 Invisible User Experiences you Never Knew About</td>
-                          <td class="td-actions text-right">
-                            <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
-                              <i class="material-icons">edit</i>
-                            </button>
-                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
-                              <i class="material-icons">close</i>
-                            </button>
-                          </td>
-                        </tr>
+                            @if (count($project->todolists->where('status', 0)) > 0)
+                                @foreach ($project->todolists->where('status', 0) as $todolist)
+                                    @forelse ($todolist->tasks->where('status', 0) as $task)
+                                        <tr id="task-{{ $task->id }}">
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" onclick="completeTask({{ $task->id }})">
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>{{ $task->description }}</td>
+                                            <td class="td-actions text-right">
+                                                <button type="button" id="delete" onclick="deleteTask({{ $task->id }});" rel="tooltip" class="btn btn-danger btn-link btn-sm">
+                                                <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        @empty
+                                        @endforelse
+                            @endforeach
+                          @endif
                       </tbody>
                     </table>
                   </div>
-                  <div class="tab-pane" id="messages">
+                  <div class="tab-pane" id="completed">
                     <table class="table">
                       <tbody>
-                        <tr>
-                          <td>
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" value="" checked="">
-                                <span class="form-check-sign">
-                                  <span class="check"></span>
-                                </span>
-                              </label>
-                            </div>
-                          </td>
-                          <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                          </td>
-                          <td class="td-actions text-right">
-                            <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
-                              <i class="material-icons">edit</i>
-                            </button>
-                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
-                              <i class="material-icons">close</i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <span class="form-check-sign">
-                                  <span class="check"></span>
-                                </span>
-                              </label>
-                            </div>
-                          </td>
-                          <td>Sign contract for "What are conference organizers afraid of?"</td>
-                          <td class="td-actions text-right">
-                            <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
-                              <i class="material-icons">edit</i>
-                            </button>
-                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
-                              <i class="material-icons">close</i>
-                            </button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="tab-pane" id="settings">
-                    <table class="table">
-                      <tbody>
-                        <tr>
-                          <td>
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" value="">
-                                <span class="form-check-sign">
-                                  <span class="check"></span>
-                                </span>
-                              </label>
-                            </div>
-                          </td>
-                          <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                          <td class="td-actions text-right">
-                            <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
-                              <i class="material-icons">edit</i>
-                            </button>
-                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
-                              <i class="material-icons">close</i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" value="" checked="">
-                                <span class="form-check-sign">
-                                  <span class="check"></span>
-                                </span>
-                              </label>
-                            </div>
-                          </td>
-                          <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                          </td>
-                          <td class="td-actions text-right">
-                            <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
-                              <i class="material-icons">edit</i>
-                            </button>
-                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
-                              <i class="material-icons">close</i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" value="" checked="">
-                                <span class="form-check-sign">
-                                  <span class="check"></span>
-                                </span>
-                              </label>
-                            </div>
-                          </td>
-                          <td>Sign contract for "What are conference organizers afraid of?"</td>
-                          <td class="td-actions text-right">
-                            <button type="button" rel="tooltip" title="" class="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
-                              <i class="material-icons">edit</i>
-                            </button>
-                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove">
-                              <i class="material-icons">close</i>
-                            </button>
-                          </td>
-                        </tr>
+                        @if (count($project->todolists->where('status', 0)) > 0)
+                            @foreach ($project->todolists->where('status', 0) as $todolist)
+                            @foreach ($todolist->tasks->where('status', 1) as $task)
+                            <tr id="taskc-{{ $task->id }}">
+                                <td>
+                                    <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" onclick="undoTask({{ $task->id }});" type="checkbox" checked>
+                                        <span class="form-check-sign">
+                                        <span class="check"></span>
+                                        </span>
+                                    </label>
+                                    </div>
+                                </td>
+                                <td>{{ $task->description }}</td>
+                            </tr>
+                            @endforeach
+
+                            @endforeach
+                        @endif
                       </tbody>
                     </table>
                   </div>
@@ -362,4 +202,103 @@
           </div>
         </div>
       </div>
+@endsection
+
+@section('scripts')
+      <script>
+
+          function undoTask(id) {
+            $.ajax({
+            method: "POST",
+            url: "/undo-task",
+            data: {
+                task_id: id,
+                '_token': "{{ csrf_token() }}"
+            },
+            success: function (data){
+
+                $(`#taskc-${id}`).remove();
+                $('div#inprogress > table > tbody').append(`
+                    <tr id="task-${ data.id }">
+                        <td>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" onclick="completeTask(${ data.id })">
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                                </label>
+                            </div>
+                        </td>
+                        <td>${ data.description }</td>
+                        <td class="td-actions text-right">
+                            <button type="button" onclick="deleteTask(${data.id})" rel="tooltip" class="btn btn-danger btn-link btn-sm">
+                            <i class="material-icons">close</i>
+                            </button>
+                        </td>
+                    </tr>
+                `);
+                console.log(data);
+            }
+            });
+          }
+
+          function completeTask(id) {
+            $.ajax({
+            method: "POST",
+            url: "/complete-task",
+            data: {
+                task_id: id,
+                '_token': "{{ csrf_token() }}"
+            },
+            success: function (data){
+
+                $(`#task-${id}`).remove();
+                $('div#completed > table > tbody').prepend(`
+                    <tr id="taskc-${data.task.id}">
+                        <td>
+                            <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" onclick="undoTask(${data.task.id})" checked>
+                                <span class="form-check-sign">
+                                <span class="check"></span>
+                                </span>
+                            </label>
+                            </div>
+                        </td>
+                        <td>${ data.task.description }</td>
+                    </tr>
+                `);
+                console.log(data);
+            }
+            });
+          }
+
+          function deleteTask(id) {
+              $.ajax({
+                  method: "POST",
+                  url: "/delete-task",
+                  data: {
+                      task_id: id,
+                      '_token': "{{ csrf_token() }}"
+                  },
+                  success: function (data) {
+                      $(`#task-${id}`).remove();
+
+                      if (data.checkpoint_ended) {
+                        $('div#inprogress > table > tbody').append(`
+
+                            <tr>
+                                <a class="btn btn-round btn-primary">Novo Checkpoint</a>
+                            </tr>
+
+                        `);
+                      }
+                  }
+              });
+          }
+
+
+
+      </script>
 @endsection
