@@ -20,11 +20,19 @@ class CreateCoursesTable extends Migration
             $table->text('icon');
             $table->timestamps();
 
-            $table->unsignedInteger('department_id');
-            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->tinyInteger('area');
 
             $table->unsignedInteger('degree_id');
             $table->foreign('degree_id')->references('id')->on('degrees')->onDelete('cascade');
+        });
+
+        Schema::create('course_tag', function (Blueprint $table) {
+            $table->increments('id');
+
+            $table->unsignedInteger('course_id');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->unsignedInteger('tag_id');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
     }
 
@@ -35,6 +43,7 @@ class CreateCoursesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('course_tag');
         Schema::dropIfExists('courses');
     }
 }

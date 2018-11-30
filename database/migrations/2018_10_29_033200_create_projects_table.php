@@ -33,6 +33,17 @@ class CreateProjectsTable extends Migration
 
             $table->softDeletes();
         });
+
+        Schema::create('project_tag', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+
+            $table->unsignedInteger('project_id');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+
+            $table->unsignedInteger('tag_id');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+        });
     }
 
     /**
@@ -42,6 +53,7 @@ class CreateProjectsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('project_tag');
         Schema::dropIfExists('projects');
     }
 }

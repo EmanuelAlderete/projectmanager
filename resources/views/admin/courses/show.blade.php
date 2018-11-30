@@ -22,7 +22,13 @@
                 </div>
                 <div class="form-group">
                     <label for="">Área: </label>
-                    <span class="badge badge-success">{{ $course->department->name }}</span>
+                    @if($course->area == 1)
+                    <span class="badge badge-success">Exatas</span>
+                        @elseif($course->area == 2)
+                        <span class="badge badge-success">Humanas</span>
+                            @else
+                            <span class="badge badge-success">Biologicas</span>
+                        @endif
                 </div>
             </form>
         </div>

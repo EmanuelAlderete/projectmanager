@@ -21,31 +21,17 @@ class CreateIdeasTable extends Migration
 
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-    
+
         });
 
-        Schema::create('course_idea', function (Blueprint $table) {
+        Schema::create('idea_tag', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
 
             $table->unsignedInteger('idea_id');
             $table->foreign('idea_id')->references('id')->on('ideas')->onDelete('cascade');
+            $table->unsignedInteger('tag_id');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
 
-            $table->unsignedInteger('course_id');
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
-    
-        });
-
-        Schema::create('department_idea', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-
-            $table->unsignedInteger('idea_id');
-            $table->foreign('idea_id')->references('id')->on('ideas')->onDelete('cascade');
-
-            $table->unsignedInteger('department_id');
-            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
-    
         });
     }
 
@@ -55,7 +41,7 @@ class CreateIdeasTable extends Migration
      * @return void
      */
     public function down()
-    {   
+    {
         Schema::dropIfExists('department_idea');
         Schema::dropIfExists('course_idea');
         Schema::dropIfExists('ideas');

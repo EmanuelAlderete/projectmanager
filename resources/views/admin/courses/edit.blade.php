@@ -34,14 +34,12 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Área</label>
-                    <select class="form-control" name="department" id="exampleFormControlSelect1">
-                        @forelse($departments as $department)
-                        <option value="{{ $department->id }}" {{ $course->department == $department ? 'selected' : '' }}>{{ $department->name }}</option>
-                        @empty
-                        Não há registros
-                        @endforelse
+                    <select class="form-control" name="area" id="exampleFormControlSelect1">
+                        <option value="1" {{ $course->area == 1 ? 'selected' : '' }}>Exatas</option>
+                        <option value="2" {{ $course->area == 2 ? 'selected' : '' }}>Humanas</option>
+                        <option value="3" {{ $course->area == 3 ? 'selected' : '' }}>Biologicas</option>
                     </select>
-                </div>   
+                </div>
                 <button type="submit" class="btn btn-success btn-md">Cadastrar</button>
             </form>
         </div>
