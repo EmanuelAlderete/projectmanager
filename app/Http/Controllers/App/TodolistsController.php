@@ -8,7 +8,7 @@ use App\Project;
 use App\Todolist;
 use App\Task;
 
-class CheckpointsController extends Controller
+class TodolistsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +19,8 @@ class CheckpointsController extends Controller
     {
         $project = Project::find($id);
 
-        return view('app.project.todolists.index' , [
-            'title' => 'Checkpoints',
+        return view('app.projects.todolists.index' , [
+            'title' => 'Listas de Tarefa',
             'project' => $project
         ]);
     }
@@ -35,7 +35,7 @@ class CheckpointsController extends Controller
         $project = Project::find($id);
 
         return view('app.project.todolists.create' , [
-            'title' => 'Checkpoints',
+            'title' => 'Listas de Tarefa',
             'project' => $project
         ]);
     }

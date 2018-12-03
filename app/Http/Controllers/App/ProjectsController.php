@@ -2,57 +2,52 @@
 
 namespace App\Http\Controllers\App;
 
+use App\Tag;
+use App\Task;
+use App\Project;
+use App\Todolist;
 use App\TypeProject;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Project;
-use App\Tag;
 
 class ProjectsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
+    public function index() {
+
         $projects = Auth::user()->projects;
 
         return view('app.projects.index', [
             'title' => 'Seus Projetos',
             'projects' => $projects
         ]);
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $types = TypeProject::all();
-        $tags = Tag::all();
+    public function show($id) {
 
+        $project = Project::find($id);
+        if (Auth::user()->projects->contains($project)) {
+
+            $todolist = $project->todolists->where('status', 0);
+
+            return view('app.projects.show',[
+                'title' => 'Projeto: ' . $project->title,
+                'project' => $project
+            ]);
+        }
+
+    }
+
+    public function create() {
         return view('app.projects.create', [
-            'title' => 'Começar novo projeto',
-            'types' => $types,
-            'tags' => $tags
+            'title' => 'Criar Projeto',
+            'tags' => Tag::all(),
+            'types' => TypeProject::all(),
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //  dd($request->all());
-
+    public function store(Request $request) {
         $project = Project::create([
             'title' => $request->title,
             'user_id' => Auth::user()->id,
@@ -69,52 +64,50 @@ class ProjectsController extends Controller
         return redirect('/projects');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        if (Auth::user()->projects->contains(Project::find($id))) {
-            return redirect("/project/" . $id);
+    public function completeTask(Request $request) {
+
+        $task = Task::find($request->task_id);
+        $task->status = 1;
+        $task->save();
+
+        $finished = false;
+
+        $available_tasks = Task::all()->where('todolist_id', $task->todolist_id)->where('status', 0);
+
+        if (count($available_tasks) == 0) {
+            $finished = true;
         }
 
-
+        return response()->json([
+            'task' => $task,
+            'finished' => $finished
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    public function undoTask(Request $request) {
+        $task = Task::find($request->task_id);
+        $task->status = 0;
+        $task->save();
+
+        return response()->json($task);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    public function deleteTask(Request $request) {
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $task = Task::find($request->task_id);
+        Task::destroy($request->task_id);
+        if(count(Todolist::find($task->todolist_id)->tasks) == 0) {
+
+            Todolist::destroy($task->todolist_id);
+
+
+            return response()->json([
+                'checkpoint_ended' => true
+            ]);
+        }
+
+        return response()->json([
+            'checkpoint_ended' => false
+        ]);
     }
 }

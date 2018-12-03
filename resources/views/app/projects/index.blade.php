@@ -10,9 +10,12 @@
                     </div>
                     <div class="card-body">
                         <a href="/projects/create">Inicie um novo projeto</a>
+                        <a href="/publish-project/create" style="float: right;">Publicar um projeto</a>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
             @foreach ($projects as $project)
                 <div class="col-md-4 col-sm-12">
                     <div class="card">

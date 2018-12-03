@@ -10,11 +10,11 @@ class Tag extends Model
         'name'
     ];
 
-    public function departments() {
-        return $this->belongsToMany(Department::class);
-    }
-
     public function projects() {
         return $this->belongsToMany(Project::class);
+    }
+
+    public function courses() {
+        return $this->belongsToMany(Course::class);
     }
 }

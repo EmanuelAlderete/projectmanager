@@ -15,14 +15,6 @@
            <div class="filters invisible">
                     <div class="row justify-content-center">
                         <div class="col-sm-12 col-md-4 col-lg-4">
-                            <label for="">Áreas:</label>
-                            <select name="departments[]" class="form-control select2" id="departments" multiple>
-                                @foreach ($departments as $department)
-                                    <option value="{{ $department->id }}" {{ $request->departments ? in_array($department->id,  $request->departments) ? 'selected' : '' : '' }}>{{ $department->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-sm-12 col-md-4 col-lg-4">
                             <label for="">Cursos:</label>
                             <select name="courses[]" class="form-control select2" id="courses" multiple>
                                 @foreach ($courses as $course)

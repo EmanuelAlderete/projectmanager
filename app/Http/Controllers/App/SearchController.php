@@ -4,7 +4,6 @@ namespace App\Http\Controllers\App;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Department;
 use App\Course;
 use App\Idea;
 use Illuminate\Http\Response;
@@ -14,7 +13,6 @@ class SearchController extends Controller
     public function index(Request $request) {
 
         $title = "Pesquisar";
-        $departments = Department::all();
         $courses = Course::all();
         $ideas = Idea::all()->sortByDesc('created_at');
         $filter = 'disable';
@@ -24,14 +22,6 @@ class SearchController extends Controller
 
             if ($request->q) {
                 $ideas = Idea::where('content', 'like' ,'%' . $request->q . '%')->get();
-            }
-
-            if ($request->departments) {
-                foreach ($request->departments as $department) {
-                    $ideas = $ideas->filter(function ($idea) use ($department) {
-                        return $idea->departments->contains($department);
-                    });
-                }
             }
 
             if ($request->courses) {
@@ -47,7 +37,6 @@ class SearchController extends Controller
 
         return view('app.search.index', [
             'title' => $title,
-            'departments' => $departments,
             'courses' => $courses,
             'ideas' => $ideas,
             'filter' => $filter,

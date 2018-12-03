@@ -7,14 +7,11 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>
-        Gerenciador de Projetos
-    </title>
-    <!-- CSS Files -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
+    <title>Gerenciador de Projetos</title>
+
     <!-- JSFiles -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -26,6 +23,46 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/i18n/datepicker.pt-BR.min.js"></script>
 
+    {{-- BootstrapTAG --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput-typeahead.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+
+    <!-- CSS Files -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
+
+    <style>
+       /* TAG INPUT */
+
+        div.bootstrap-tagsinput {
+            background: no-repeat center bottom, center calc(100% - 1px);
+            background-size: 0 100%, 100% 100%;
+            border: 0;
+            border-bottom: 1px solid #d2d2d2;
+            height: 36px;
+            transition: background 0s ease-out;
+            padding-left: 0;
+            padding-right: 0;
+            border-radius: 0;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .bootstrap-tagsinput {
+            box-shadow: none;
+        }
+
+        .label-info {
+            background-color: #9128AC;
+            padding: 0.25em 0.4em;
+            font-size: 75%;
+            font-weight: 500;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+        }
+    </style>
 
 </head>
 

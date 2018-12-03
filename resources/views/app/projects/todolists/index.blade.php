@@ -2,13 +2,13 @@
 
 @section('content')
 <div class="container-fluid" id="area">
-    <a href="/project/{{ $project->id }}" class="btn btn-primary btn-fab btn-fab-mini btn-round"><i class="material-icons">arrow_back</i></a>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Novo todolist</button>
+    <a href="/projects/{{ $project->id }}" class="btn btn-primary btn-fab btn-fab-mini btn-round"><i class="material-icons">arrow_back</i></a>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Nova Lista</button>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Criar novo todolist</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Criar nova Lista</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>

@@ -17,9 +17,9 @@ class CreateCoursesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('label');
-            $table->text('icon');
             $table->timestamps();
 
+            // 0-exatas 1-humanas 2-biologicas
             $table->tinyInteger('area');
 
             $table->unsignedInteger('degree_id');

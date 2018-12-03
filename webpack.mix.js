@@ -39,8 +39,7 @@ mix.scripts([
 ], 'public/js/app.js');
 
 mix.styles([
-    'resources/themes/app/css/material-dashboard.css',
-    'resources/sass/app.scss'
+    'resources/themes/app/css/material-dashboard.css'
 ], 'public/css/app.css');
 
 // mix.styles([

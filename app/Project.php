@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Todolist;
+use App\Institution;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -20,20 +21,16 @@ class Project extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function courses() {
-        return $this->hasMany(Course::class);
+    public function course() {
+        return $this->belongsTo(Course::class);
+    }
+
+    public function institution() {
+        return $this->belongsTo(Institution::class);
     }
 
     public function todolists() {
         return $this->hasMany(Todolist::class);
-    }
-
-    public function departments() {
-        return $this->hasMany(Department::class);
-    }
-
-    public function roleProject() {
-        return $this->belongsTo(RoleProject::class);
     }
 
     public function tags() {

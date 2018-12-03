@@ -50,11 +50,11 @@ Route::middleware(['auth'])->group(function () {
 
         // Rotas de Projeto
         Route::resource('/projects', 'ProjectsController');
-        Route::resource('/project/{id}/todolists', 'CheckpointsController');
-        Route::get('/project/{id}', 'ProjectController@index');
-        Route::post('/complete-task', 'ProjectController@completeTask');
-        Route::post('/undo-task', 'ProjectController@undoTask');
-        Route::post('/delete-task', 'ProjectController@deleteTask');
+        Route::resource('/publish-project', 'PublishProjectController');
+        Route::resource('/projects/{id}/todolists', 'TodolistsController');
+        Route::post('/complete-task', 'ProjectsController@completeTask');
+        Route::post('/undo-task', 'ProjectsController@undoTask');
+        Route::post('/delete-task', 'ProjectsController@deleteTask');
     });
 });
 

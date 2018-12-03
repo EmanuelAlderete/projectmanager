@@ -9,7 +9,7 @@
                 <div class="card-icon">
                   <i class="material-icons">place</i>
                 </div>
-                <p class="card-category">Checkpoints</p>
+                <p class="card-category">Listas de Tarefa</p>
                 <h3 class="card-title">{{ count($project->todolists) }}
                 </h3>
               </div>

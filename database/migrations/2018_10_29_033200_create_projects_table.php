@@ -20,16 +20,27 @@ class CreateProjectsTable extends Migration
             $table->text('title');
             $table->text('description');
             $table->text('authors');
+            $table->tinyInteger('status')->default(0);
             //
             $table->string('teacher_id')->nullable();
+            $table->string('teacher_name')->nullable();
             $table->text('subject')->nullable();
             $table->date('deadline')->nullable();
+
+            $table->text('subtitle')->nullable();
+            $table->text('website')->nullable();
 
             $table->unsignedInteger('type_project_id');
             $table->foreign('type_project_id')->references('id')->on('type_projects')->onDelete('cascade');
 
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->unsignedInteger('institution_id')->nullable();
+            $table->foreign('institution_id')->references('id')->on('institutions')->onDelete('cascade');
+
+            $table->unsignedInteger('course_id')->nullable();
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
 
             $table->softDeletes();
         });

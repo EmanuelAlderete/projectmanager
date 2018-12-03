@@ -27,17 +27,6 @@
                                     </select>
                                 </div>
                             </div>
-
-                            <div class="col-sm-12 col-md-12 col-lg-6">
-                                <div class="form-group">
-                                    <label for="areas">Áreas de Conhecimento <i class="fas fa-microscope"></i></label>
-                                    <select name="departments[]" id="courses" class="form-control" multiple>
-                                        @foreach ($departments as $department)
-                                            <option value="{{ $department->id }}">{{ $department->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="row">
@@ -55,5 +44,5 @@
 @endsection
 
 @section('scripts')
-    
+
 @endsection
