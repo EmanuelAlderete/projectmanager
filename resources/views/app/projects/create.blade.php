@@ -64,14 +64,11 @@
                                 </div>
                                 <input type="text" class="form-control d-none" id="input_id_teacher" placeholder="#121554" name="public_id">
                         </div>
-                        <div class="form-gruop">
-                            <label for="tags">Tags</label>
-                            <select name="tags" id="tags[]" class="form-control" multiple>
-                                @foreach ($tags as $tag)
-                                    <option value="{{ $tag->id }}">{{ $tag->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        <div class="form-group">
+                                <label for="tags">Palavras-chave</label>
+                                <small id="emailHelp" class="form-text text-muted">* Obrigatório</small>
+                                <input type="text" class="form-control" id="tags" name="tags" data-role="tagsinput" required>
+                            </div>
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-dark" type="button" onclick="callstep('step1');">Voltar</button>

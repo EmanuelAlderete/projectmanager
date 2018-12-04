@@ -59,7 +59,19 @@ class ProjectsController extends Controller
             'teacher_id' => $request->teacher_id
         ]);
 
-        $project->tags()->sync($request->tags);
+        $tags = explode(',', $request->tags);
+        // ARRUMAR
+        foreach ($tags as $tag) {
+            if (Tag::all()->where('name', $tag)->count() == 0) {
+                $tag = Tag::create(['name' => $tag]);
+                $project->tags()->attach($tag->id);
+            } else {
+                foreach(Tag::all()->where('name', $tag) as $tag) {
+                    $project->tags()->attach($tag->id);
+                }
+            }
+        }
+
 
         return redirect('/projects');
     }

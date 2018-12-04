@@ -3,3 +3,7 @@
   color: white !important;
 }
 
+.bootstrap-tagsinput {
+  overflow-y: scroll;
+}
+

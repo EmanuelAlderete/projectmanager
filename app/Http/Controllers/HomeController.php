@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Idea;
+use App\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,9 +35,10 @@ class HomeController extends Controller
         } else if ($user->can('access-menu')) {
             return view('app.index', [
                 'title' => 'Dashboard',
-                'teacher_status' => Auth::user()->teacherRequest()->count() == 0 ? 0 : Auth::user()->teacherRequest->status
+                'teacher_status' => Auth::user()->teacherRequest()->count() == 0 ? 0 : Auth::user()->teacherRequest->status,
+                'courses' => Course::all(),
+                'ideas' => Idea::all()
             ]);
         }
-
     }
 }

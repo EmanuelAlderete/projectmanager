@@ -91,18 +91,6 @@
                   <p>Dashboard</p>
                 </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/search">
-                  <i class="material-icons"><i class="fas fa-search"></i></i>
-                  <p>Pesquisar</p>
-                </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/ideas">
-                  <i class="material-icons"><i class="fas fa-comment"></i></i>
-                  <p>Publicar Ideia</p>
-                </a>
-                    </li>
                     @can('access-menu-root') @can('super-admin')
                     <li class="nav-item ">
                         <a class="nav-link" href="/users">

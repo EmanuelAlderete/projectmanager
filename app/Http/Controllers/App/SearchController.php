@@ -4,18 +4,12 @@ namespace App\Http\Controllers\App;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Course;
 use App\Idea;
 use Illuminate\Http\Response;
 
 class SearchController extends Controller
 {
     public function index(Request $request) {
-
-        $title = "Pesquisar";
-        $courses = Course::all();
-        $ideas = Idea::all()->sortByDesc('created_at');
-        $filter = 'disable';
 
         if ($request->all()) {
             $ideas = Idea::all();
@@ -31,16 +25,8 @@ class SearchController extends Controller
                     });
                 }
             }
-
-            $filter = 'enable';
         }
 
-        return view('app.search.index', [
-            'title' => $title,
-            'courses' => $courses,
-            'ideas' => $ideas,
-            'filter' => $filter,
-            'request' => $request
-        ]);
+        return response()->json($ideas);
     }
 }

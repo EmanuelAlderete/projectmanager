@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\TeacherRequest;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class TeacherRequestsController extends Controller
 {
@@ -113,6 +114,14 @@ class TeacherRequestsController extends Controller
         $t_request = TeacherRequest::find($id);
 
         $t_request->status = $request->status;
+
+        if ($request->status == 2) {
+            $user = $t_request->user;
+            $user->teacher = 1;
+            $user->registry = $t_request->registry;
+            $user->save();
+        }
+
         $t_request->save();
 
         return redirect('/teacher-requests');

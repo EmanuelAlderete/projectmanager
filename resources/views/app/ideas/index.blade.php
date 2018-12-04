@@ -17,14 +17,11 @@
                            </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-6">
+                            <div class="col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <label for="">Cursos <i class="fas fa-graduation-cap"></i></label>
-                                    <select name="courses[]" id="courses" class="form-control" multiple>
-                                        @foreach ($courses as $course)
-                                            <option value="{{ $course->id }}">{{ $course->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <label for="tags">Palavras-chave</label>
+                                    <small id="emailHelp" class="form-text text-muted">* Obrigatório</small>
+                                    <input type="text" class="form-control" id="tags" name="tags" data-role="tagsinput" required>
                                 </div>
                             </div>
                         </div>

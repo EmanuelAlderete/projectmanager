@@ -6,16 +6,9 @@
         <div class="col-sm-12 col-md-6">
             <div class="card">
                 <div class="card-header">
-                    @forelse ($idea->departments as $department)
-                        <span class="badge badge-pill badge-success">{{ $department->name }}</span>
-                    @empty
-                        <span class="badge badge-pill badge-danger">Não vinculado</span>
-                    @endforelse
-                    @forelse ($idea->courses as $course)
-                        <span class="badge badge-pill badge-warning">{{ $course->name }}</span>
-                    @empty
-                        <span class="badge badge-pill badge-danger">Não vinculado</span>
-                    @endforelse
+                    @foreach ($idea->tags()->get() as $tag)
+                        <span class="badge badge-pill badge-warning">{{ $tag->name }}</span>
+                    @endforeach
                     <hr>
                 </div>
                 <div class="card-body">
@@ -38,9 +31,9 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        
+
         $.ajax({
-            
+
            type:'post',
            url:'/like',
            data: {
@@ -52,7 +45,7 @@
            }
         });
 
-        
+
     }
 
 </script>

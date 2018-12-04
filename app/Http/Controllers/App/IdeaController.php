@@ -2,36 +2,37 @@
 
 namespace App\Http\Controllers\App;
 
+use App\Tag;
 use App\Idea;
-use App\Course;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class IdeaController extends Controller
 {
-    public function index() {
-
-        $courses = Course::all();
-
-        return view('app.ideas.index', [
-            'title' => 'Publique sua Ideia',
-            'courses' => $courses
-        ]);
-
-    }
 
     public function store(Request $request) {
         $idea = new Idea();
         $idea->content = $request->get('content');
         $idea->status = 0;
         $idea->user()->associate(Auth::user());
-
         $idea->save();
 
-        $idea->courses()->sync($request->get('courses'));
+        $tags = explode(',', $request->tags);
 
-        return redirect('/ideas');
+
+        foreach ($tags as $tag) {
+            if (Tag::all()->where('name', $tag)->count() == 0) {
+                $tag = Tag::create(['name' => $tag]);
+                $idea->tags()->attach($tag->id);
+            } else {
+                foreach(Tag::all()->where('name', $tag) as $tag) {
+                    $idea->tags()->attach($tag->id);
+                }
+            }
+        }
+
+        return redirect('/home');
     }
 
     public function show($id) {

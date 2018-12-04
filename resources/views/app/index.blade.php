@@ -52,13 +52,105 @@
             </div>
           </div>
         </div>
-      </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-7">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        Publique sua ideia <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="card-body">
+                        <form action="/ideas" method="POST">
+                            @csrf
+                            <div class="row">
+                                <div class="col-12">
+                                <div class="form-group">
+                                    <textarea style="resize:none;border-bottom:none;" minlength="25" maxlength="1000" name="content" id="content" rows="5" placeholder="Descreva sua ideia" class="form-control" required></textarea>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="tags">Palavras-chave</label>
+                                        <small id="emailHelp" class="form-text text-muted">* Obrigatório</small>
+                                        <input type="text" class="form-control" id="tags" name="tags" data-role="tagsinput" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <button style="width:100%" class="btn btn-lg btn-primary" type="submit">Publicar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-5">
+                <div class="row justify-content-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <form class="form-search" id="form-search">
+                                <div class="col-sm-12 search-area">
+                                    <input type="hidden" id="filter" name="filter">
+                                    <input type="search" class="form-control" name="q" id="q" placeholder="Pesquise algo..." autofocus>
+                                    <button type="button" class="btn btn-primary btn-round" id="submit"><i class="fas fa-search"></i></button>
+                                    <button type="button" class="btn btn-primary btn-round" id="filters-toggle"><i class="fas fa-filter"></i></button>
+                                </div>
+                                <div class="filters invisble">
+                                    <div class="row justify-content-center">
+                                        <div class="col-sm-12">
+                                            <label for="">Cursos:</label>
+                                            <select name="courses[]" class="form-control" id="courses" multiple>
+                                                @foreach ($courses as $course)
+                                                    <option value="{{ $course->id }}" >{{ $course->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-7">
+                @foreach ($ideas as $idea)
+                    <div class="card">
+                        <div class="card-header">
+                            <p>{{ ucwords($idea->user->name) }}</p>
+                        </div>
+                        <div class="card-body">
+                            <p>{{ $idea->content }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <button type="button" id="like-{{ $idea->id }}" onclick="likeidea({{ $idea->id }});" class="btn btn-danger btn-sm"><i class="far fa-heart {{ Auth::user()->verifyLike($idea->id) ? 'd-none' : '' }}"></i><i class="fas fa-heart {{ Auth::user()->verifyLike($idea->id) ? '' : 'd-none' }}"></i> Curtir</button>
+                            <small>{{ count($idea->likes) }} Likes - Publicado em {{ $idea->created_at->format('d M Y') }}</small>
+                            <a href="/ideas/{{ $idea->id }}" class="btn btn-dark btn-sm">Ver</a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="col-sm-12 col-md-5 results">
+
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('scripts')
       <script>
 
         $(document).ready(function () {
+
+            // SetupSelect2
+            $('.select2-js').select2();
 
             $('a#occupation').on('click', function () {
                 $(this).hide();
@@ -90,4 +182,66 @@
         });
 
       </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+{{-- Filter Scripts --}}
+<script>
+    if($('#filter').val() ==  'enable') {
+        $('div.filters').fadeToggle();
+    }
+
+    $('#filters-toggle').on('click', function() {
+        $('div.filters').fadeToggle();
+    });
+
+    $("#form-search").submit(function(e) {
+        e.preventDefault();
+    });
+
+    $('button#submit').on('click', function() {
+        $.ajax({
+            method: "POST",
+            url: "/search",
+            data: {
+                'q': $('#q').val(),
+                'courses[]': $('#courses').val(),
+                '_token': "{{ csrf_token() }}"
+            },
+            success: function(data) {
+                console.log(data);
+                }
+             });
+        });
+
+
+</script>
+
+{{-- Like Scripts --}}
+<script>
+
+    function likeidea(id) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+
+           type:'post',
+           url:'/like',
+           data: {
+               idea_id: id
+            },
+
+           success:function(result){
+              $('#like-' + id + ' i').toggleClass('d-none');
+           }
+        });
+
+
+    }
+
+</script>
+
 @endsection

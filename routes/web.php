@@ -39,8 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::namespace('App')->group(function () {
 
         // Pesquisa de Ideas
-        Route::get('/search', 'SearchController@index');
-        Route::post('/search', 'SearchController@search');
+        Route::post('/search', 'SearchController@index');
 
         // Publicação Ideias
         Route::Resource('/ideas', 'IdeaController');
