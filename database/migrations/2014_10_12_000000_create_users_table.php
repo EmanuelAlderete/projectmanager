@@ -25,6 +25,8 @@ class CreateUsersTable extends Migration
             $table->string('registry')->nullable();
             $table->tinyInteger('teacher')->default(0);
             //
+            $table->date('birth')->nullable();
+
             $table->string('public_id');
             $table->text('bio')->nullable();
             $table->string('occupation')->nullable();

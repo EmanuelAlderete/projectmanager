@@ -33,7 +33,7 @@ class HomeController extends Controller
         } else if ($user->can('access-menu')) {
             return view('app.index', [
                 'title' => 'Dashboard',
-                'nProjetos' => count(Auth::user()->projects)
+                'teacher_status' => Auth::user()->teacherRequest()->count() == 0 ? 0 : Auth::user()->teacherRequest->status
             ]);
         }
 

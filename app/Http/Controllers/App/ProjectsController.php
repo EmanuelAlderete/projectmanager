@@ -15,7 +15,7 @@ class ProjectsController extends Controller
 {
     public function index() {
 
-        $projects = Auth::user()->projects;
+        $projects = Auth::user()->projects->where('status', '!=', 5);
 
         return view('app.projects.index', [
             'title' => 'Seus Projetos',

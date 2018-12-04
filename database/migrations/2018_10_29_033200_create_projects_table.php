@@ -30,6 +30,8 @@ class CreateProjectsTable extends Migration
             $table->text('subtitle')->nullable();
             $table->text('website')->nullable();
 
+            $table->text('annex')->nullable();
+
             $table->unsignedInteger('type_project_id');
             $table->foreign('type_project_id')->references('id')->on('type_projects')->onDelete('cascade');
 

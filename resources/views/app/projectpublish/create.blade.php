@@ -35,7 +35,7 @@
                         <div class="form-group">
                             <label for="tags">Palavras-chave</label>
                             <small id="emailHelp" class="form-text text-muted">* Obrigatório</small>
-                            <input type="text" class="form-control" id="tags" data-role="tagsinput" required>
+                            <input type="text" class="form-control" id="tags" name="tags" data-role="tagsinput" required>
                         </div>
                         <div class="form-group">
                             <label for="website">Website</label>
@@ -43,8 +43,8 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-sm-12 col-md-4">
-                                <label for="institution">Selecione o tipo de projeto</label>
-                                <select name="institution" id="institution" class="form-control selectpicker" data-style="btn btn-link">
+                                <label for="type">Selecione o tipo de projeto</label>
+                                <select name="type" id="type" class="form-control selectpicker" data-style="btn btn-link">
                                         @foreach ($types as $type)
                                             <option value="{{ $type->id }}">{{ $type->name }}</option>
                                         @endforeach
@@ -60,8 +60,8 @@
                                 </select>
                             </div>
                             <div class="form-group col-sm-12 col-md-4">
-                                    <label for="institution">Este projeto foi desenvolvido em qual curso?</label>
-                                    <select name="institution" id="institution" class="form-control selectpicker" data-style="btn btn-link">
+                                    <label for="course">Este projeto foi desenvolvido em qual curso?</label>
+                                    <select name="course" id="course" class="form-control selectpicker" data-style="btn btn-link">
                                         <option>Nenhuma</option>
                                         @foreach ($courses as $course)
                                             <option value="{{ $course->id }}">{{ $course->name }}</option>
@@ -70,9 +70,9 @@
                                 </div>
                         </div>
                         <div class="form-group form-file-upload form-file-multiple">
-                            <input type="file" multiple="" class="inputFileHidden" id="inputFile">
+                            <input type="file" name="annex" class="inputFileHidden" id="inputFile">
                             <div class="input-group">
-                                <input type="text" class="form-control inputFileVisible inputTrigger" required placeholder="Single File" onkeypress="return false;">
+                                <input type="text"  class="form-control inputFileVisible inputTrigger" accept="application/pdf, application/zip, application/rar" required placeholder="Single File" onkeypress="return false;">
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-fab btn-round btn-primary inputTrigger">
                                         <i class="material-icons">attach_file</i>

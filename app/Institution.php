@@ -19,4 +19,8 @@ class Institution extends Model
     public function projects() {
         return $this->belongsToMany(Project::class);
     }
+
+    public function users() {
+        return $this->hasMany(User::class);
+    }
 }

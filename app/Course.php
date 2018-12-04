@@ -14,6 +14,10 @@ class Course extends Model
         return $this->belongsTo(Degree::class);
     }
 
+    public function users() {
+        return $this->hasMany(User::class);
+    }
+
     public function ideas() {
         return $this->belongsToMany(Idea::class);
     }
@@ -24,5 +28,9 @@ class Course extends Model
 
     public function projects() {
         return $this->hasMany(Project::class);
+    }
+
+    public function tags() {
+        return $this->belongsToMany(Tag::class);
     }
 }
