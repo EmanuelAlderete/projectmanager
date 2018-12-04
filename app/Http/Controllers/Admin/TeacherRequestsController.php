@@ -76,6 +76,10 @@ class TeacherRequestsController extends Controller
     public function show($id)
     {
         if ($this->authorize('view')) {
+            return view('admin.teacher-requests.show', [
+                'title' => 'Analisar Solicitação',
+                'request' => TeacherRequest::find($id)
+            ]);
         }
         return abort(401);
     }
@@ -88,9 +92,13 @@ class TeacherRequestsController extends Controller
      */
     public function edit($id)
     {
-        if ($this->authorize('view')) {
-        }
-        return abort(401);
+        // if ($this->authorize('edit')) {
+        //     return view('admin.teacher-requests.edit', [
+        //         'title' => 'Analisar Solicitação',
+        //         'request' => TeacherRequest::find($id)
+        //     ]);
+        // }
+        // return abort(401);
     }
 
     /**
@@ -102,7 +110,12 @@ class TeacherRequestsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $t_request = TeacherRequest::find($id);
+
+        $t_request->status = $request->status;
+        $t_request->save();
+
+        return redirect('/teacher-requests');
     }
 
     /**

@@ -111,6 +111,12 @@
             </a>
                     </li>
                     <li class="nav-item ">
+                            <a class="nav-link" href="/teacher-requests">
+                  <i class="material-icons">done</i>
+                  <p>Solicitações</p>
+                </a>
+                        </li>
+                    <li class="nav-item ">
                         <a class="nav-link" href="/permissions">
               <i class="material-icons"><i class="fa fa-lock" aria-hidden="true"></i></i>
               <p>Permissões</p>
