@@ -2,25 +2,29 @@
 
 namespace App\Http\Controllers\App;
 
-use App\Tag;
-use App\Course;
 use App\Project;
-use App\Institution;
-use App\TypeProject;
+use App\Todolist;
+use App\Checkpoint;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class PublishProjectController extends Controller
+class CheckpointsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $project = Project::find($id);
+        if (Auth::user()->projects->contains($project)) {
+            return view('app.projects.checkpoints.index', [
+                'title' => 'Checkpoints',
+                'project' => $project
+            ]);
+        }
     }
 
     /**
@@ -30,12 +34,7 @@ class PublishProjectController extends Controller
      */
     public function create()
     {
-        return view('app.projectpublish.create', [
-            'title' => 'Publicar um Projeto',
-            'courses' => Course::all(),
-            'institutions' => Institution::all(),
-            'types' => TypeProject::all(),
-        ]);
+        //
     }
 
     /**
@@ -46,45 +45,27 @@ class PublishProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $project = Project::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'subtitle' => $request->subtitle,
-            'authors' => $request->authors,
-            'institution_id' => $request->institution,
-            'course_id' => $request->course,
-            'teacher_name' => $request->teacher,
-            'website' => $request->website,
-            'type_project_id' => $request->type,
-            'user_id' => Auth::user()->id,
-            'status' => 5,
-            'public_id' => 'project_' . time()
-        ]);
 
         $name = uniqid(date('HisYmd'));
         $extension = $request->annex->getClientOriginalExtension();
         $nameFile = "{$name}.{$extension}";
-        $upload = $request->annex->storeAs('annexes', $nameFile);
+        $upload = $request->annex->storeAs('projects/project-{$request->project_id}', $nameFile);
 
-        $project->annex = $nameFile;
-        $project->save();
+        $checkpoint = Checkpoint::create([
+            'project_id' => $request->project_id,
+            'title' => $request->title,
+            'message' => $request->message,
+            'status' => $request->status == 1 ? 1 : 0,
+            'annex' => $nameFile
+        ]);
 
-        $tags = explode(',', $request->tags);
-
-        foreach ($tags as $tag) {
-            if (Tag::all()->where('name', $tag)->count() == 0) {
-                $tag = Tag::create(['name' => $tag]);
-                if ($request->course != 0) {
-                    $tag->courses()->sync($request->course);
-                }
-            }
-            foreach(Tag::all()->where('name', $tag) as $tag) {
-                $tag->projects()->attach($project->id);
-            }
-
+        foreach($request->todolists as $todolist) {
+            $todolist =  Todolist::find($todolist);
+            $todolist->checkpoint()->associate($checkpoint);
+            $todolist->save();
         }
 
-        return redirect('/projects');
+        return redirect('/checkpoints');
     }
 
     /**

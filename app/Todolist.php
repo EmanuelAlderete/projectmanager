@@ -10,7 +10,8 @@ class Todolist extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'deadline', 'priority', 'description', 'project_id'
+        'deadline', 'priority', 'description', 'project_id',
+        'checkpoint_id'
     ];
 
     protected $dates = ['deleted_at'];
@@ -21,5 +22,9 @@ class Todolist extends Model
 
     public function project() {
         return $this->belongsTo(Project::class);
+    }
+
+    public function checkpoint() {
+        return $this->belongsTo(Checkpoint::class);
     }
 }

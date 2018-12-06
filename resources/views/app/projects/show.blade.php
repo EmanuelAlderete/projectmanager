@@ -26,12 +26,12 @@
                 <div class="card-icon">
                   <i class="material-icons">feedback</i>
                 </div>
-                <p class="card-category">Feedbacks</p>
-                <h3 class="card-title">15</h3>
+                <p class="card-category">Checkpoints</p>
+                <h3 class="card-title">{{ $project->checkpoints()->count() }}</h3>
               </div>
               <div class="card-footer">
                 <div class="stats">
-                  <a href="#pablo">Ver</a>
+                  <a href="/projects/{{ $project->id }}/checkpoints">Ver</a>
                 </div>
               </div>
             </div>
@@ -58,8 +58,8 @@
                 <div class="card-icon">
                   <i class="fa fa-twitter"></i>
                 </div>
-                <p class="card-category">Followers</p>
-                <h3 class="card-title">+245</h3>
+                <p class="card-category">Prazo</p>
+                <h3 class="card-title">{{ (new DateTime())->diff(date_create($project->deadline))->d }} Dias</h3>
               </div>
               <div class="card-footer">
                 <div class="stats">
@@ -89,6 +89,12 @@
                           <div class="ripple-container"></div>
                         </a>
                       </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/save-checkpoint">
+                            <i class="material-icons">arrow_right_alt</i> Próxima Lista
+                            <div class="ripple-container"></div>
+                        </a>
+                    </li>
                     </ul>
                   </div>
                 </div>
@@ -120,6 +126,9 @@
                                             </td>
                                         </tr>
                                         @empty
+                                        <tr id="finished">
+                                                <td><button class="btn btn-primary" data-toggle="modal" data-target="#modal-checkpoint">Salvar Checkpoint</button> Salvando um checkpoint seu projeto fica mais organizado.</td>
+                                            </tr>
                                         @endforelse
                             @endforeach
                           @endif
@@ -202,6 +211,50 @@
           </div>
         </div>
       </div>
+
+      {{-- MODAL CHECKPOINT --}}
+      <div class="modal fade" id="modal-checkpoint" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-signup" role="document">
+              <div class="modal-content">
+                <div class="card card-signup card-plain">
+                  <div class="modal-header">
+                    <h5 class="modal-title card-title">Salvar Checkpoint</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="material-icons">clear</i>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-12">
+                        <form method="post">
+                            <div class="form-group">
+                                <label for="title">Título</label>
+                                <input type="text" class="form-control" name="title">
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Mensagem</label>
+                                <textarea name="message" cols="30" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="annex">Arquivo</label>
+                                <input type="file" class="form-control" name="annex">
+                            </div>
+                            <div class="form-group">
+                                <label for="todolists">Listas de Tarefas</label>
+                                <select name="todolists[]" id="todolists" class="form-control" multiple>
+                                    @foreach ($project->todolists->where('checkpoint_id', null)->where('status', '>', 1) as $todolist)
+                                        <option value="{{ $todolist->id }}">{{ $todolist->description }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 @endsection
 
 @section('scripts')
@@ -218,6 +271,7 @@
             success: function (data){
 
                 $(`#taskc-${id}`).remove();
+                $('#finished').remove();
                 $('div#inprogress > table > tbody').append(`
                     <tr id="task-${ data.id }">
                         <td>
@@ -238,7 +292,6 @@
                         </td>
                     </tr>
                 `);
-                console.log(data);
             }
             });
           }
@@ -252,7 +305,6 @@
                 '_token': "{{ csrf_token() }}"
             },
             success: function (data){
-
                 $(`#task-${id}`).remove();
                 $('div#completed > table > tbody').prepend(`
                     <tr id="taskc-${data.task.id}">
@@ -269,8 +321,16 @@
                         <td>${ data.task.description }</td>
                     </tr>
                 `);
-                console.log(data);
-            }
+
+                if (data.finished == true) {
+                console.log(data.finished)
+                    $('div#inprogress > table > tbody').append(`
+                    <tr id="finished">
+                        <td><button class="btn btn-primary" data-toggle="modal" data-target="#modal-checkpoint">Salvar Checkpoint</button> Salvando um checkpoint seu projeto fica mais organizado.</td>
+                    </tr>
+                `);
+                }
+                }
             });
           }
 
@@ -285,15 +345,13 @@
                   success: function (data) {
                       $(`#task-${id}`).remove();
 
-                      if (data.checkpoint_ended) {
-                        $('div#inprogress > table > tbody').append(`
-
-                            <tr>
-                                <a class="btn btn-round btn-primary">Novo Checkpoint</a>
+                      if (data.finished == true) {
+                            $('div#inprogress > table > tbody').append(`
+                            <tr id="finished">
+                                <td><button class="btn btn-primary" data-toggle="modal" data-target="#modal-checkpoint">Salvar Checkpoint</button> Salvando um checkpoint seu projeto fica mais organizado.</td>
                             </tr>
-
                         `);
-                      }
+                        }
                   }
               });
           }

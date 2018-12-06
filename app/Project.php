@@ -17,11 +17,20 @@ class Project extends Model
         'title', 'description', 'authors',
         'type_project_id', 'user_id', 'subject',
         'teacher_id', 'deadline', 'subtitle', 'website',
-        'institution_id', 'course_id', 'teacher_name', 'status'
+        'institution_id', 'course_id', 'teacher_name', 'status',
+        'public_id'
     ];
+
+    public function invitations() {
+        return $this->hasMany(Invitation::class);
+    }
 
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function checkpoints() {
+        return $this->hasMany(Checkpoint::class);
     }
 
     public function course() {

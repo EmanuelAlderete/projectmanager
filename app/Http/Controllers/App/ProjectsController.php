@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\App;
 
 use App\Tag;
-use App\Task;
 use App\Project;
-use App\Todolist;
 use App\TypeProject;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Invitation;
+use App\User;
 
 class ProjectsController extends Controller
 {
@@ -56,8 +56,15 @@ class ProjectsController extends Controller
             'type_project_id' => $request->type,
             'deadline' => date('Y-m-d', strtotime($request->deadline)),
             'subject' => $request->subject,
-            'teacher_id' => $request->teacher_id
+            'public_id' => 'project_' . time()
         ]);
+
+        if($request->public_teacher_id) {
+            Invitation::create([
+                'user_id' => User::where('public_id', $request->public_teacher_id)->first()->id,
+                'project_id' => $project->id
+            ]);
+        }
 
         $tags = explode(',', $request->tags);
         // ARRUMAR
@@ -71,55 +78,6 @@ class ProjectsController extends Controller
                 }
             }
         }
-
-
         return redirect('/projects');
-    }
-
-    public function completeTask(Request $request) {
-
-        $task = Task::find($request->task_id);
-        $task->status = 1;
-        $task->save();
-
-        $finished = false;
-
-        $available_tasks = Task::all()->where('todolist_id', $task->todolist_id)->where('status', 0);
-
-        if (count($available_tasks) == 0) {
-            $finished = true;
-        }
-
-        return response()->json([
-            'task' => $task,
-            'finished' => $finished
-        ]);
-    }
-
-    public function undoTask(Request $request) {
-        $task = Task::find($request->task_id);
-        $task->status = 0;
-        $task->save();
-
-        return response()->json($task);
-    }
-
-    public function deleteTask(Request $request) {
-
-        $task = Task::find($request->task_id);
-        Task::destroy($request->task_id);
-        if(count(Todolist::find($task->todolist_id)->tasks) == 0) {
-
-            Todolist::destroy($task->todolist_id);
-
-
-            return response()->json([
-                'checkpoint_ended' => true
-            ]);
-        }
-
-        return response()->json([
-            'checkpoint_ended' => false
-        ]);
     }
 }

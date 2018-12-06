@@ -41,7 +41,7 @@
                     <a href="/teacher-requests/create">Solicitar perfil professor</a>
                 @endswitch
 
-                <h4 class="card-title">{{ Auth::user()->name }}</h4>
+                <h4 class="card-title">{{ Auth::user()->name }} - {{ Auth::user()->public_id }}</h4>
                 <p class="card-description">
                   {{ Auth::user()->bio }}
                 </p>

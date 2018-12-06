@@ -67,7 +67,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'public_id' => str_random(40)
+            'public_id' => 'user_' . time()
         ]);
 
         $user->roles()->attach(2);

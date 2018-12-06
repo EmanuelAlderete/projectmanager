@@ -38,30 +38,29 @@ Route::middleware(['auth'])->group(function () {
 
     Route::namespace('App')->group(function () {
 
-        // Pesquisa de Ideas
-        Route::post('/search', 'SearchController@index');
-
-        // Publicação Ideias
+        // Resources Controller Routes
         Route::Resource('/ideas', 'IdeaController');
-
-        // Like
-        Route::post('/like', 'LikeController@index');
-
-        // Rotas de Projeto
         Route::resource('/projects', 'ProjectsController');
+        Route::resource('/todolists', 'TodolistsController');
+        Route::resource('/projects/{id}/checkpoints', 'CheckpointsController');
         Route::resource('/publish-project', 'PublishProjectController');
         Route::resource('/projects/{id}/todolists', 'TodolistsController');
+        Route::resource('/invitations', 'InvitationsController');
 
-        // AJAX ROUTES
-        Route::post('/complete-task', 'ProjectsController@completeTask');
-        Route::post('/undo-task', 'ProjectsController@undoTask');
-        Route::post('/delete-task', 'ProjectsController@deleteTask');
-        Route::post('/update-occupation', 'AccountController@updateOccupation');
+        // Aux Routes - AJAX Routes
+        Route::post('/like', 'LikeController@index');
+        Route::post('/complete-task', 'TodolistsController@completeTask');
+        Route::post('/undo-task', 'TodolistsController@undoTask');
+        Route::post('/delete-task', 'TodolistsController@deleteTask');
+        Route::post('/update-occupation', 'TodolistsController@updateOccupation');
+        Route::post('/activate-todolist', 'TodolistsController@activateTodolist');
+        Route::post('/search', 'SearchController@index');
+        Route::post('/answer-invite', 'InvitationsController@answerInvite');
 
-        // Account Routs
+        // Account Controller
         Route::get('/account/edit', 'AccountController@edit');
         Route::post('/account/update', 'AccountController@update');
-        Route::get('/request-teacher-account', 'AccountController@teacherForm');
+        Route::post('/update-occupation', 'AccountController@updateOccupation');
     });
 });
 

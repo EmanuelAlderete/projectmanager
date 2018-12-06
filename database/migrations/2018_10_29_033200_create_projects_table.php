@@ -32,6 +32,8 @@ class CreateProjectsTable extends Migration
 
             $table->text('annex')->nullable();
 
+            $table->text('public_id')->nullable();
+
             $table->unsignedInteger('type_project_id');
             $table->foreign('type_project_id')->references('id')->on('type_projects')->onDelete('cascade');
 

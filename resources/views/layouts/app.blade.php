@@ -83,14 +83,21 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-
                     @can('access-menu')
                     <li class="nav-item active  ">
                         <a class="nav-link" href="/home">
-                  <i class="material-icons">dashboard</i>
-                  <p>Dashboard</p>
-                </a>
+                            <i class="material-icons">dashboard</i>
+                            <p>Dashboard</p>
+                        </a>
                     </li>
+                    @if (Auth::user()->teacher == 1)
+                    <li class="nav-item">
+                            <a class="nav-link" href="/invitations">
+                                <i class="material-icons">email</i>
+                                <p>Convites</p>
+                            </a>
+                        </li>
+                    @endif
                     @can('access-menu-root') @can('super-admin')
                     <li class="nav-item ">
                         <a class="nav-link" href="/users">

@@ -95,8 +95,6 @@
 
         $(document).ready(function() {
 
-
-
             $('.inputTrigger').on('click', function () {
                 $('#inputFile').trigger('click');
                 $(this).focusout();

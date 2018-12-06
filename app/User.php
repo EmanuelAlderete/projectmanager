@@ -31,6 +31,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function invitations() {
+        return $this->hasMany(Invitation::class);
+    }
+
     public function roles() {
         return $this->belongsToMany(Role::class);
     }
