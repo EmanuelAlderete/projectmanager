@@ -59,6 +59,7 @@ Route::middleware(['auth'])->group(function () {
 
         // Aux Routes
         Route::post('/publish-project/response', 'PublishProjectController@response');
+        Route::post('/answer-invite', 'Invitations@answerInvite');
 
         // Account Controller
         Route::get('/account/edit', 'AccountController@edit');
