@@ -18,9 +18,17 @@ class PublishProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index() {
+        if (Auth::user()->teacher == 1) {
+            $projects = Project::all()->where('status', 5);
+
+            return view('app.projectpublish.index', [
+                'title' => 'Aprovar Projetos',
+                'projects' => $projects
+            ]);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -28,8 +36,7 @@ class PublishProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         return view('app.projectpublish.create', [
             'title' => 'Publicar um Projeto',
             'courses' => Course::all(),
@@ -44,8 +51,7 @@ class PublishProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $project = Project::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -87,48 +93,24 @@ class PublishProjectController extends Controller
         return redirect('/projects');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function show($id) {
+        if (Auth::user()->teacher == 1) {
+            $project = Project::find($id);
+
+            return view('app.projectpublish.show', [
+                'title' => 'Projeto: '.$project->title,
+                'project' => $project
+            ]);
+        } else {
+            abort(401);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+    public function response(Request $request) {
+        $project = Project::find($request->project_id);
+        $project->status = $request->status;
+        $project->save();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect('/publish-project');
     }
 }

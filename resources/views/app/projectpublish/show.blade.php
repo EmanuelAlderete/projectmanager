@@ -75,6 +75,36 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card-footer">
+                        <form action="/publish-project/response" method="post">
+                            @csrf
+                            <input type="hidden" name="project_id" value="{{ $project->id }}">
+                            <label for="">Julgue este projeto</label>
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <div class="form-check form-check-radio">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="1" checked>
+                                            Aprovar
+                                            <span class="circle">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-radio">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" name="status" id="exampleRadios2" value="2" >
+                                            Negar
+                                            <span class="circle">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-success" type="submit">Enviar</button>   
+                        </form>
+                    </div>
                 </div>
             </div>
 

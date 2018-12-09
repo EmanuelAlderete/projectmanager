@@ -6,27 +6,20 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Idea;
 use Illuminate\Http\Response;
+use App\Checkpoint;
+use App\Project;
 
 class SearchController extends Controller
 {
-    public function index(Request $request) {
+    public function index() {
+        $checkpoints = Checkpoint::where('status', 3)->count();
+        $ideas = Idea::all()->count();
+        $projects = Project::where('status', 2)->count();
 
-        if ($request->all()) {
-            $ideas = Idea::all();
-
-            if ($request->q) {
-                $ideas = Idea::where('content', 'like' ,'%' . $request->q . '%')->get();
-            }
-
-            if ($request->courses) {
-                foreach ($request->courses as $course) {
-                    $ideas = $ideas->filter(function ($idea) use ($course) {
-                        return $idea->courses->contains($course);
-                    });
-                }
-            }
-        }
-
-        return response()->json($ideas);
+        return view('app.search.index', [
+            'title' => 'Pesquisar no Banco',
+            'checkpoints' => $checkpoints,
+            'projects' => $projects
+        ]);
     }
 }

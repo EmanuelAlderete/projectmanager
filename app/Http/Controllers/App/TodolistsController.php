@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Project;
 use App\Todolist;
 use App\Task;
+use Illuminate\Support\Facades\Auth;
 
 class TodolistsController extends Controller
 {
@@ -18,11 +19,15 @@ class TodolistsController extends Controller
     public function index($id)
     {
         $project = Project::find($id);
+        if (Auth::user()->projects->contains($project) || $project->teacher_id == Auth::user()->id) {
 
-        return view('app.projects.todolists.index' , [
-            'title' => 'Listas de Tarefa',
-            'project' => $project
-        ]);
+            return view('app.projects.todolists.index', [
+                'title' => 'Listas de Tarefa',
+                'project' => $project
+            ]);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -33,11 +38,14 @@ class TodolistsController extends Controller
     public function create($id)
     {
         $project = Project::find($id);
-
-        return view('app.project.todolists.create' , [
-            'title' => 'Listas de Tarefa',
-            'project' => $project
-        ]);
+        if (Auth::user()->projects->contains($project) || $project->teacher_id == Auth::user()->id) {
+            return view('app.project.todolists.create', [
+                'title' => 'Listas de Tarefa',
+                'project' => $project
+            ]);
+        } else {
+            abort(401);
+        }
     }
 
     /**
@@ -79,7 +87,7 @@ class TodolistsController extends Controller
         if (count($available_tasks) == 0) {
             // Definindo Todolist como Concluída
             $todolist = Todolist::find($task->todolist_id);
-            $todolist->status = 4;
+            $todolist->status = 2;
             $todolist->save();
             $list_finished = true;
         }
@@ -112,7 +120,7 @@ class TodolistsController extends Controller
         if (count($available_tasks) == 0) {
             // Definindo Todolist como Concluída
             $todolist = Todolist::find($task->todolist_id);
-            $todolist->status = 4;
+            $todolist->status = 2;
             $todolist->save();
             $list_finished = true;
         }

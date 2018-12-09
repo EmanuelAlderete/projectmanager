@@ -46,16 +46,19 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/publish-project', 'PublishProjectController');
         Route::resource('/projects/{id}/todolists', 'TodolistsController');
         Route::resource('/invitations', 'InvitationsController');
+        Route::resource('/feedbacks', 'FeedbacksController');
 
-        // Aux Routes - AJAX Routes
+        // AJAX Routes
         Route::post('/like', 'LikeController@index');
         Route::post('/complete-task', 'TodolistsController@completeTask');
         Route::post('/undo-task', 'TodolistsController@undoTask');
         Route::post('/delete-task', 'TodolistsController@deleteTask');
         Route::post('/update-occupation', 'TodolistsController@updateOccupation');
         Route::post('/activate-todolist', 'TodolistsController@activateTodolist');
-        Route::post('/search', 'SearchController@index');
-        Route::post('/answer-invite', 'InvitationsController@answerInvite');
+        Route::get('/search', 'SearchController@index');
+
+        // Aux Routes
+        Route::post('/publish-project/response', 'PublishProjectController@response');
 
         // Account Controller
         Route::get('/account/edit', 'AccountController@edit');

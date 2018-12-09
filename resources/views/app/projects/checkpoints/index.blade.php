@@ -40,6 +40,11 @@
                             @endforeach
                         </ul>
                     </div>
+                    @if(Auth::user()->teacher == 1)
+                        <div class="card-footer">
+                            <a href="/projects/{{ $project->id }}/checkpoints/{{ $checkpoint->id }}" class="btn btn-primary">Ver</a>
+                        </div>
+                    @endif
                 </div>
             </div>
         @empty

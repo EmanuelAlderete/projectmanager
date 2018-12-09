@@ -52,7 +52,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-sm-12 col-md-7">
                 <div class="card">
                     <div class="card-header card-header-primary">
@@ -89,37 +89,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-5">
-                <div class="row justify-content-center">
-                    <div class="card">
-                        <div class="card-body">
-                            <form class="form-search" id="form-search">
-                                <div class="col-sm-12 search-area">
-                                    <input type="hidden" id="filter" name="filter">
-                                    <input type="search" class="form-control" name="q" id="q" placeholder="Pesquise algo..." autofocus>
-                                    <button type="button" class="btn btn-primary btn-round" id="submit"><i class="fas fa-search"></i></button>
-                                    <button type="button" class="btn btn-primary btn-round" id="filters-toggle"><i class="fas fa-filter"></i></button>
-                                </div>
-                                <div class="filters invisble">
-                                    <div class="row justify-content-center">
-                                        <div class="col-sm-12">
-                                            <label for="">Cursos:</label>
-                                            <select name="courses[]" class="form-control" id="courses" multiple>
-                                                @foreach ($courses as $course)
-                                                    <option value="{{ $course->id }}" >{{ $course->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12 col-md-7">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-6">
                 @foreach ($ideas as $idea)
                     <div class="card">
                         <div class="card-header">
@@ -135,9 +107,6 @@
                         </div>
                     </div>
                 @endforeach
-            </div>
-            <div class="col-sm-12 col-md-5 results">
-
             </div>
         </div>
     </div>
@@ -183,38 +152,6 @@
 
       </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-
-{{-- Filter Scripts --}}
-<script>
-    if($('#filter').val() ==  'enable') {
-        $('div.filters').fadeToggle();
-    }
-
-    $('#filters-toggle').on('click', function() {
-        $('div.filters').fadeToggle();
-    });
-
-    $("#form-search").submit(function(e) {
-        e.preventDefault();
-    });
-
-    $('button#submit').on('click', function() {
-        $.ajax({
-            method: "POST",
-            url: "/search",
-            data: {
-                'q': $('#q').val(),
-                'courses[]': $('#courses').val(),
-                '_token': "{{ csrf_token() }}"
-            },
-            success: function(data) {
-                console.log(data);
-                }
-             });
-        });
-
-
-</script>
 
 {{-- Like Scripts --}}
 <script>

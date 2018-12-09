@@ -18,5 +18,9 @@ class Checkpoint extends Model
         return $this->belongsTo(Projetc::class);
     }
 
+    public function feedback() {
+        return $this->hasOne(Feedback::class);
+    }
+
 
 }

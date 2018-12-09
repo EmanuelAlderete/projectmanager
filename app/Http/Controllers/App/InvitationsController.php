@@ -15,12 +15,15 @@ class InvitationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('app.projects.invitations.index', [
-            'title' => 'Convites',
-            'invitations' => Auth::user()->invitations,
-        ]);
+    public function index() {
+        if (Auth::user()->teacher == 1) {
+            return view('app.projects.invitations.index', [
+                'title' => 'Convites',
+                'invitations' => Auth::user()->invitations,
+            ]);
+        } else {
+            abort(401);
+        }
     }
 
     public function answerInvite(Request $request) {

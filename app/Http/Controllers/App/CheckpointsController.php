@@ -19,12 +19,17 @@ class CheckpointsController extends Controller
     public function index($id)
     {
         $project = Project::find($id);
-        if (Auth::user()->projects->contains($project)) {
-            return view('app.projects.checkpoints.index', [
-                'title' => 'Checkpoints',
-                'project' => $project
-            ]);
+        if (Auth::user()->projects->contains($project) || $project->teacher_id == Auth::user()->id) {
+                return view('app.projects.checkpoints.index', [
+                    'title' => 'Checkpoints',
+                    'project' => $project
+                ]);
+        } else {
+            abort(401);
         }
+
+
+
     }
 
     /**
@@ -49,7 +54,7 @@ class CheckpointsController extends Controller
         $name = uniqid(date('HisYmd'));
         $extension = $request->annex->getClientOriginalExtension();
         $nameFile = "{$name}.{$extension}";
-        $upload = $request->annex->storeAs('projects/project-{$request->project_id}', $nameFile);
+        $upload = $request->annex->storeAs('projects/project-'.$request->project_id, $nameFile);
 
         $checkpoint = Checkpoint::create([
             'project_id' => $request->project_id,
@@ -62,10 +67,11 @@ class CheckpointsController extends Controller
         foreach($request->todolists as $todolist) {
             $todolist =  Todolist::find($todolist);
             $todolist->checkpoint()->associate($checkpoint);
+            $todolist->status = 3;
             $todolist->save();
         }
 
-        return redirect('/checkpoints');
+        return redirect('/projects/'.$request->project_id.'/checkpoints');
     }
 
     /**
@@ -74,9 +80,22 @@ class CheckpointsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($project_id, $checkpoint_id) {
+
+        $project = Project::find($project_id);
+
+        if (Auth::user()->teacher == 1 && $project->teacher_id == Auth::user()->id) {
+
+            return view('app.projects.checkpoints.show', [
+                'title' => 'Checkpoint: ',
+                'project' => $project,
+                'checkpoint' => Checkpoint::find($checkpoint_id)
+            ]);
+
+        } else {
+            abort(401);
+        }
+
     }
 
     /**

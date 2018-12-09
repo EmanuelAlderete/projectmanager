@@ -16,10 +16,13 @@ class ProjectsController extends Controller
     public function index() {
 
         $projects = Auth::user()->projects->where('status', '!=', 5);
+        $managed_projects = Project::all()->where('teacher_id', Auth::user()->id);
+
+        $projects = $projects->merge($managed_projects);
 
         return view('app.projects.index', [
             'title' => 'Seus Projetos',
-            'projects' => $projects
+            'projects' => $projects,
         ]);
 
     }
@@ -27,16 +30,30 @@ class ProjectsController extends Controller
     public function show($id) {
 
         $project = Project::find($id);
-        if (Auth::user()->projects->contains($project)) {
 
-            $todolist = $project->todolists->where('status', 0);
-
-            return view('app.projects.show',[
-                'title' => 'Projeto: ' . $project->title,
+        if ($project->status == 2) {
+            return view('app.projects.show', [
+                'title' => 'Ver Projeto',
                 'project' => $project
             ]);
-        }
+        } elseif (Auth::user()->projects->contains($project)) {
+            if ($project->status == 1 || $project->status == 3) {
+                return view('app.projects.show', [
+                    'title' => 'Ver Projeto',
+                    'project' => $project
+                ]);
+            } else {
+                $todolist = $project->todolists->where('status', 0);
 
+                return view('app.projects.open',[
+                    'title' => 'Projeto: ' . $project->title,
+                    'project' => $project,
+                    'teacher' => User::find($project->teacher_id)
+                ]);
+            }
+        } else {
+            abort(401);
+        }
     }
 
     public function create() {
