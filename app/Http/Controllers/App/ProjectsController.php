@@ -36,7 +36,7 @@ class ProjectsController extends Controller
                 'title' => 'Ver Projeto',
                 'project' => $project
             ]);
-        } elseif (Auth::user()->projects->contains($project)) {
+        } elseif (Auth::user()->projects->contains($project) || $project->teacher_id == Auth::user()->id) {
             if ($project->status == 1 || $project->status == 3) {
                 return view('app.projects.show', [
                     'title' => 'Ver Projeto',
