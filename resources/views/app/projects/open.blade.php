@@ -3,23 +3,23 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="card card-stats">
-              <div class="card-header card-header-warning card-header-icon">
+                <div class="card-header card-header-warning card-header-icon">
                 <div class="card-icon">
-                  <i class="material-icons">place</i>
+                    <i class="material-icons">place</i>
                 </div>
-                <p class="card-category">Listas de Tarefa</p>
-                <h3 class="card-title">{{ count($project->todolists) }}
-                </h3>
-              </div>
-              <div class="card-footer">
-                <div class="stats">
-                  <a href="/projects/{{ $project->id }}/todolists">Ver</a>
-                </div>
-              </div>
+                    <p class="card-category">Listas de Tarefa</p>
+                    <h3 class="card-title">{{ count($project->todolists) }}
+                    </h3>
             </div>
-          </div>
+            <div class="card-footer">
+                    <div class="stats">
+                        <a href="/projects/{{ $project->id }}/todolists">Ver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="card card-stats">
               <div class="card-header card-header-success card-header-icon">
@@ -40,14 +40,14 @@
             <div class="card card-stats">
               <div class="card-header card-header-danger card-header-icon">
                 <div class="card-icon">
-                  <i class="material-icons">info_outline</i>
+                  <i class="material-icons">folder_open</i>
                 </div>
-                <p class="card-category">Sugestões</p>
-                <h3 class="card-title">75</h3>
+                <p class="card-category">Arquivos</p>
+                <h3 class="card-title">{{ $project->checkpoints()->count() }}</h3>
               </div>
               <div class="card-footer">
                 <div class="stats">
-                  <a href="#pablo">Ver</a>
+                  <a href="/projects/{{ $project->id }}/documents/">Ver</a>
                 </div>
               </div>
             </div>
@@ -56,14 +56,14 @@
             <div class="card card-stats">
               <div class="card-header card-header-info card-header-icon">
                 <div class="card-icon">
-                  <i class="fa fa-twitter"></i>
+                    <i class="material-icons">hourglass_empty</i>
                 </div>
                 <p class="card-category">Prazo</p>
                 <h3 class="card-title">{{ (new DateTime())->diff(date_create($project->deadline))->d }} Dias</h3>
               </div>
               <div class="card-footer">
                 <div class="stats">
-                  <a href="#pablo">Ver</a>
+                  <small>Organize seus horários</small>
                 </div>
               </div>
             </div>
@@ -89,12 +89,6 @@
                       <div class="ripple-container"></div>
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/save-checkpoint">
-                        <i class="material-icons">arrow_right_alt</i> Próxima Lista
-                        <div class="ripple-container"></div>
-                    </a>
-                </li>
                 </ul>
               </div>
             </div>
@@ -105,7 +99,7 @@
                 <table class="table">
                   <tbody>
                         @if (count($project->todolists->where('status', 0)) > 0)
-                            @foreach ($project->todolists->where('status', 0) as $todolist)
+                            @forelse($project->todolists->where('status', 0) as $todolist)
                                 @forelse ($todolist->tasks->where('status', 0) as $task)
                                     <tr id="task-{{ $task->id }}">
                                         <td>
@@ -127,11 +121,16 @@
                                     </tr>
                                     @empty
                                     <tr id="finished">
-                                            <td><button class="btn btn-primary" data-toggle="modal" data-target="#modal-checkpoint">Salvar Checkpoint</button> Salvando um checkpoint seu projeto fica mais organizado.</td>
-                                        </tr>
-                                    @endforelse
-                        @endforeach
-                      @endif
+                                        <td>Acesse essa <a href="/projects/{{ $project->id }}/todolists">página</a> para criar um novo checkpoint.</td>
+                                    </tr>
+                                @endforelse
+                                @empty
+                            @endforelse
+                        @else
+                        <tr id="finished">
+                                <td>Acesse essa <a href="/projects/{{ $project->id }}/todolists">página</a> para criar uma nova lista.</td>
+                            </tr>
+                        @endif
                   </tbody>
                 </table>
               </div>
@@ -344,7 +343,7 @@
                 console.log(data.finished)
                     $('div#inprogress > table > tbody').append(`
                     <tr id="finished">
-                        <td><button class="btn btn-primary" data-toggle="modal" data-target="#modal-checkpoint">Salvar Checkpoint</button> Salvando um checkpoint seu projeto fica mais organizado.</td>
+                        <td>Acesse essa <a href="/projects/{{ $project->id }}/todolists">página</a> para criar um checkpoint</td>
                     </tr>
                 `);
                 }
@@ -366,7 +365,7 @@
                       if (data.finished == true) {
                             $('div#inprogress > table > tbody').append(`
                             <tr id="finished">
-                                <td><button class="btn btn-primary" data-toggle="modal" data-target="#modal-checkpoint">Salvar Checkpoint</button> Salvando um checkpoint seu projeto fica mais organizado.</td>
+                                <td>Acesse essa <a href="/projects/{{ $project->id }}/todolists">página</a> para criar um checkpoint</td>
                             </tr>
                         `);
                         }

@@ -15,7 +15,7 @@ class ProjectsController extends Controller
 {
     public function index() {
 
-        $projects = Auth::user()->projects->where('status', '!=', 5);
+        $projects = Auth::user()->projects;
         $managed_projects = Project::all()->where('teacher_id', Auth::user()->id);
 
         $projects = $projects->merge($managed_projects);
@@ -37,7 +37,7 @@ class ProjectsController extends Controller
                 'project' => $project
             ]);
         } elseif (Auth::user()->projects->contains($project) || $project->teacher_id == Auth::user()->id) {
-            if ($project->status == 1 || $project->status == 3) {
+            if ($project->status == 1 || $project->status == 3 || $project->status == 5) {
                 return view('app.projects.show', [
                     'title' => 'Ver Projeto',
                     'project' => $project

@@ -27,7 +27,7 @@
                             @endforeach
                         </ul>
 
-                        <a href="/storage/projects/project-{{ $project->id }}/{{ $checkpoint->annex }}">Clique aqui</a> para fazer download
+                        <a href="/storage/projects/project-{{ $project->id }}/{{ $checkpoint->annex }}" target="_blank">Clique aqui</a> para fazer download
                         @if($checkpoint->feedback()->count() == 0)
                         <hr>
                         <div class="row">

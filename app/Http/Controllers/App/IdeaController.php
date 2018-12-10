@@ -22,12 +22,13 @@ class IdeaController extends Controller
 
 
         foreach ($tags as $tag) {
+            
             if (Tag::all()->where('name', $tag)->count() == 0) {
                 $tag = Tag::create(['name' => $tag]);
-                $idea->tags()->attach($tag->id);
+                $idea->tags()->sync($tag->id);
             } else {
                 foreach(Tag::all()->where('name', $tag) as $tag) {
-                    $idea->tags()->attach($tag->id);
+                    $idea->tags()->sync($tag->id);
                 }
             }
         }

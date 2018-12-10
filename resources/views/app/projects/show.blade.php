@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h6>Avalie o projeto. Lembre-se: "Com grandes problemas vêm grandes responsabilidades".</h6>
+                        <h6>Veja as especificações do seu projeto.</h6>
                     </div>
                     <div class="card-body">
                         <div class="row">

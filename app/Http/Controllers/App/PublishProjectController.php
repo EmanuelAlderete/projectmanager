@@ -85,7 +85,7 @@ class PublishProjectController extends Controller
                 }
             }
             foreach(Tag::all()->where('name', $tag) as $tag) {
-                $tag->projects()->attach($project->id);
+                $tag->projects()->sync($project->id);
             }
 
         }

@@ -37,7 +37,7 @@ class HomeController extends Controller
                 'title' => 'Dashboard',
                 'teacher_status' => Auth::user()->teacherRequest()->count() == 0 ? 0 : Auth::user()->teacherRequest->status,
                 'courses' => Course::all(),
-                'ideas' => Idea::all()
+                'ideas' => Idea::all()->sortByDesc('created_at')
             ]);
         }
     }
@@ -45,6 +45,7 @@ class HomeController extends Controller
     public function search(Request $request) {
 
         if ($request->all()) {
+
 
             if ($request->q) {
                 $text_filter = Idea::where('content', 'like' ,'%' . $request->q . '%')->get();

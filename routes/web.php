@@ -60,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
         // Aux Routes
         Route::post('/publish-project/response', 'PublishProjectController@response');
         Route::post('/answer-invite', 'InvitationsController@answerInvite');
+        Route::get('/projects/{id}/documents', 'CheckpointsController@documents');
 
         // Account Controller
         Route::get('/account/edit', 'AccountController@edit');

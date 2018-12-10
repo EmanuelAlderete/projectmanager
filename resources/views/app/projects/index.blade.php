@@ -19,10 +19,17 @@
             @foreach ($projects as $project)
                 <div class="col-md-4 col-sm-12">
                     <div class="card">
-                        <div class="card-header">
+                        @if($project->status == 5)
+                        <div class="card-header card-header-warning">
+                            <h5>{{ strtoupper($project->title) }}</h5>
+                            <p>{{ $project->typeProject->name }} - Aguardando Aprovação</p>
+                        </div>
+                        @else
+                        <div class="card-header card-header-primary">
                             <h5>{{ strtoupper($project->title) }}</h5>
                             <p>{{ $project->typeProject->name }}</p>
                         </div>
+                        @endif
                         <div class="card-body">
                             <p>{{ $project->description }}</p>
                         </div>

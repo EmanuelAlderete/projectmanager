@@ -16,8 +16,7 @@ class CheckpointsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
-    {
+    public function index($id) {
         $project = Project::find($id);
         if (Auth::user()->projects->contains($project) || $project->teacher_id == Auth::user()->id) {
                 return view('app.projects.checkpoints.index', [
@@ -27,18 +26,9 @@ class CheckpointsController extends Controller
         } else {
             abort(401);
         }
-
-
-
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -60,9 +50,25 @@ class CheckpointsController extends Controller
             'project_id' => $request->project_id,
             'title' => $request->title,
             'message' => $request->message,
-            'status' => $request->status == 1 ? 1 : 0,
+            'status' => 0,
             'annex' => $nameFile
         ]);
+
+        if (Project::find($request->project_id)->teacher_id) {
+            if ($request->status) {
+                $checkpoint->status = $request->status;
+            } else {
+                $checkpoint->status = 0;
+            }
+        } else {
+            if ($request->status) {
+                $checkpoint->status = 4;
+            } else {
+                $checkpoint->status = 5;
+            }
+        }
+
+        $checkpoint->save();
 
         foreach($request->todolists as $todolist) {
             $todolist =  Todolist::find($todolist);
@@ -98,37 +104,13 @@ class CheckpointsController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    public function documents($project_id) {
+        $checkpoints = Checkpoint::all()->where('project_id', $project_id);
+
+        return view('app.projects.checkpoints.documents', [
+            'title' => 'Documentos',
+            'checkpoints' => $checkpoints
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

@@ -52,4 +52,8 @@ class Project extends Model
     public function typeProject() {
         return $this->belongsTo(TypeProject::class);
     }
+
+    public function teacher() {
+        return User::find($this->teacher_id);
+    }
 }

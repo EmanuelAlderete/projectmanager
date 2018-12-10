@@ -20,8 +20,15 @@
                                         @break
                                     @case(2)
                                         Revisado
+                                        @break
                                     @case(3)
                                         Revisado e Publicado
+                                        @break
+                                    @case(4)
+                                        Publicado
+                                        @break
+                                    @case(5)
+                                        Não Publicado
                                         @break
                                     @default
                                     Concluído
@@ -39,8 +46,14 @@
                                 <li>{{ $todolist->description }}</li>
                             @endforeach
                         </ul>
+                        @if($checkpoint->status == 2 || $checkpoint->status == 3)
+                            <div class="card-title">
+                                <strong>Feedback</strong>
+                                <p>{{ $project->teacher()->name }}: {{ $checkpoint->feedback->message }}</p>
+                            </div>
+                        @endif
                     </div>
-                    @if(Auth::user()->teacher == 1)
+                    @if(Auth::user()->teacher == 1 && $project->teacher_id == Auth::user()->id)
                         <div class="card-footer">
                             <a href="/projects/{{ $project->id }}/checkpoints/{{ $checkpoint->id }}" class="btn btn-primary">Ver</a>
                         </div>
