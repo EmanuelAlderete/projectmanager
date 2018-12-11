@@ -54,14 +54,14 @@ class CheckpointsController extends Controller
             'annex' => $nameFile
         ]);
 
-        if (Project::find($request->project_id)->teacher_id) {
-            if ($request->status) {
-                $checkpoint->status = $request->status;
+        if (Project::find($checkpoint->project_id)->teacher_id != null) {
+            if ($request->publish == "true") {
+                $checkpoint->status = 1;
             } else {
                 $checkpoint->status = 0;
             }
         } else {
-            if ($request->status) {
+            if ($request->publish == "true") {
                 $checkpoint->status = 4;
             } else {
                 $checkpoint->status = 5;

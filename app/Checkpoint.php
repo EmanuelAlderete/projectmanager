@@ -15,12 +15,10 @@ class Checkpoint extends Model
     }
 
     public function project() {
-        return $this->belongsTo(Projetc::class);
+        return $this->belongsTo(Project::class);
     }
 
     public function feedback() {
         return $this->hasOne(Feedback::class);
     }
-
-
 }

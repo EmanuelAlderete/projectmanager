@@ -12,10 +12,10 @@ class TagsTableSeeder extends Seeder
      */
     public function run()
     {
-        Tag::create(['name' => 'informática']);
+        Tag::create(['name' => 'informatica']);
         Tag::create(['name' => 'computadores']);
         Tag::create(['name' => 'internet']);
-        Tag::create(['name' => 'ciência']);
+        Tag::create(['name' => 'ciencia']);
         Tag::create(['name' => 'técnologia']);
         Tag::create(['name' => 'inovação']);
         Tag::create(['name' => 'redes']);
@@ -28,18 +28,18 @@ class TagsTableSeeder extends Seeder
         Tag::create(['name' => 'terra']);
         Tag::create(['name' => 'animais']);
         Tag::create(['name' => 'direito']);
-        Tag::create(['name' => 'política']);
+        Tag::create(['name' => 'politica']);
         Tag::create(['name' => 'informação']);
-        Tag::create(['name' => 'notícia']);
+        Tag::create(['name' => 'noticia']);
         Tag::create(['name' => 'reportagem']);
         Tag::create(['name' => 'filosofia']);
         Tag::create(['name' => 'conhecimento']);
         Tag::create(['name' => 'criatividade']);
         Tag::create(['name' => 'habilidade']);
-        Tag::create(['name' => 'programação']);
+        Tag::create(['name' => 'programaçao']);
         Tag::create(['name' => 'floricultura']);
         Tag::create(['name' => 'flores']);
         Tag::create(['name' => 'construções']);
-        Tag::create(['name' => 'cálculos']);
+        Tag::create(['name' => 'calculos']);
     }
 }

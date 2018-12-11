@@ -41,34 +41,4 @@ class HomeController extends Controller
             ]);
         }
     }
-
-    public function search(Request $request) {
-
-        if ($request->all()) {
-
-
-            if ($request->q) {
-                $text_filter = Idea::where('content', 'like' ,'%' . $request->q . '%')->get();
-            }
-
-            if ($request->courses) {
-                foreach ($request->courses as $course) {
-                    $course_filter = Idea::where('course_id', $course);
-                }
-            }
-
-            if ($request->tags) {
-                foreach ($request->tags as $tag) {
-                    $tag_filter = $tag_filter->merge(Idea::whereHas('tags', function ($query) {
-                        $query->where('id', $tag);
-                    })->fisrt());
-                }
-            }
-        }
-
-        return response()->json($ideas);
-    }
-
-
-
 }

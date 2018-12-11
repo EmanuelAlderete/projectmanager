@@ -86,6 +86,8 @@ class ProjectsController extends Controller
         $tags = explode(',', $request->tags);
         // ARRUMAR
         foreach ($tags as $tag) {
+            // Remove acentos
+            $tag = preg_replace(array("/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),explode(" ","a A e E i I o O u U n N"), $tag);
             if (Tag::all()->where('name', $tag)->count() == 0) {
                 $tag = Tag::create(['name' => $tag]);
                 $project->tags()->attach($tag->id);

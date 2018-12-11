@@ -113,11 +113,6 @@
                                             </div>
                                         </td>
                                         <td>{{ $task->description }}</td>
-                                        <td class="td-actions text-right">
-                                            <button type="button" id="delete" onclick="deleteTask({{ $task->id }});" rel="tooltip" class="btn btn-danger btn-link btn-sm">
-                                            <i class="material-icons">close</i>
-                                            </button>
-                                        </td>
                                     </tr>
                                     @empty
                                     <tr id="finished">
@@ -302,11 +297,6 @@
                             </div>
                         </td>
                         <td>${ data.description }</td>
-                        <td class="td-actions text-right">
-                            <button type="button" onclick="deleteTask(${data.id})" rel="tooltip" class="btn btn-danger btn-link btn-sm">
-                            <i class="material-icons">close</i>
-                            </button>
-                        </td>
                     </tr>
                 `);
             }

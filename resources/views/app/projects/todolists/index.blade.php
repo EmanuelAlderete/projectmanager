@@ -101,7 +101,7 @@
                         </div>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" name="publish" value="1">
+                                <input class="form-check-input" type="checkbox" name="publish" value="true">
                                 Desejo tornar esse checkpoint público.
                                 <span class="form-check-sign">
                                     <span class="check"></span>

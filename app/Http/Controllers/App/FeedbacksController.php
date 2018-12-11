@@ -56,7 +56,7 @@ class FeedbacksController extends Controller
 
         $checkpoint->save();
 
-        return redirect('/projects'.'/'.$checkpoint->project->id.'/checkpoints');
+        return redirect()->back();
     }
 
     /**
