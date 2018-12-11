@@ -84,7 +84,7 @@
                                 <div class="col-12">
                                     <div class="form-check form-check-radio">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="1" checked>
+                                            <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="2" checked>
                                             Aprovar
                                             <span class="circle">
                                                 <span class="check"></span>
@@ -93,7 +93,7 @@
                                     </div>
                                     <div class="form-check form-check-radio">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="radio" name="status" id="exampleRadios2" value="2" >
+                                            <input class="form-check-input" type="radio" name="status" id="exampleRadios2" value="1" >
                                             Negar
                                             <span class="circle">
                                                 <span class="check"></span>
@@ -102,7 +102,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-success" type="submit">Enviar</button>   
+                            <button class="btn btn-success" type="submit">Enviar</button>
                         </form>
                     </div>
                 </div>

@@ -80,13 +80,16 @@
                     <div class="card">
                         <div class="card-header card-header-icon card-header-warning">
                             <div class="card-icon">
-                                <i class="material-icons"><i class="far fa-lightbulb"></i></i>
+                                <i class="material-icons"><i class="fas fa-archive"></i></i>
                             </div>
-                            <p class="card-category">{{ $project->user->name }}</p>
+                            <h3 class="card-title">{{ $project->user->name }}</h3>
                         </div>
                         <div class="card-body">
                             <strong>{{ $project->title }}</strong>
                             <p>{{ $project->description }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/projects/{{ $project->id }}" class="btn btn-primary">Ver</a>
                         </div>
                     </div>
                 </div>
@@ -113,6 +116,9 @@
                         <div class="card-body">
                             <strong>{{ $checkpoint->title }}</strong>
                             <p>{{ $checkpoint->message }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/checkpoints/{{ $checkpoint->id }}" class="btn btn-primary">Ver</a>
                         </div>
                     </div>
                 </div>
